@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Bakery.Models
     
 {
-    [Table ("List of baking goods")]
+    [Table ("Listofbakinggoods")]
     public class List_of_baking_goods
     {
         [Key]

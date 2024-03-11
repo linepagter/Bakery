@@ -78,9 +78,7 @@ namespace Bakery.Data
                 .OnDelete(DeleteBehavior.Cascade);
         }
 
-        //private const string DbName = "BakeryDB";
-        //private const string ConnectionString = $"Data Source=localhost;Initial Catalog={DbName};User ID=SA;Password=<YourStrong@Passw0rd>;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
-
+        
         public DbSet<Batch> Batch => Set<Batch>();
         public DbSet<Has> Has => Set<Has>();
         public DbSet<Ingredients> Ingredients => Set<Ingredients>();
@@ -91,7 +89,5 @@ namespace Bakery.Data
         public DbSet<Stock> Stocks => Set<Stock>();
         public DbSet<Uses> Uses => Set<Uses>();
 
-        // protected override void OnConfiguring(DbContextOptionsBuilder options)
-        //     => options.UseSqlServer(ConnectionString);
     }
 }
