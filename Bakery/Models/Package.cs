@@ -9,14 +9,11 @@ namespace Bakery.Models
     {
         
         [Key]
-        [Required]
         public int Trackid { get; set; }
         
-        //Skal denne med?
-        [Required]
+        [ForeignKey("Order")]
         public int OrderId { get; set; }
         
-        [Required]
         public Order Order { get; set; }
     }
 }
