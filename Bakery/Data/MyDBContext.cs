@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Bakery.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bakery
+namespace Bakery.Data
 {
     public class MyDbContext : DbContext
     {
@@ -15,7 +15,7 @@ namespace Bakery
             : base(options)
         {
         }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -52,7 +52,7 @@ namespace Bakery
                 .HasForeignKey(f => f.BatchId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
-            
+
             modelBuilder.Entity<Made_in>()
                 .HasKey(i => new { i.OrderId, i.BatchId });
 
@@ -69,7 +69,7 @@ namespace Bakery
                 .HasForeignKey(f => f.BatchId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
-            
+
             modelBuilder.Entity<Package>()
                 .HasOne(o => o.Order)
                 .WithMany(p => p.Packages)
@@ -77,7 +77,7 @@ namespace Bakery
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
         }
-        
+
         //private const string DbName = "BakeryDB";
         //private const string ConnectionString = $"Data Source=localhost;Initial Catalog={DbName};User ID=SA;Password=<YourStrong@Passw0rd>;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
