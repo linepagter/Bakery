@@ -8,7 +8,7 @@ namespace Bakery.Models
     {
         [Key]
         [Required]
-        public int Id { get; set; }
+        public int StockId { get; set; }
         
         [Required]
         public int Quantity { get; set; }

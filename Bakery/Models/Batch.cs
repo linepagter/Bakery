@@ -10,7 +10,7 @@ namespace Bakery.Models
     {
         [Key]
         [Required]
-        public int Id { get; set; }
+        public int BatchId { get; set; }
 
         [Required]
         [MaxLength(200)]
