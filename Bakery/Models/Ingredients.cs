@@ -16,5 +16,8 @@ namespace Bakery.Models
         
         [Required]
         public ICollection<Has>? Has { get; set; }
+        
+        [Required]
+        public ICollection<Uses>? Uses { get; set; }
     }
 }

@@ -14,7 +14,6 @@ namespace Bakery.Models
 
         [Required]
         public Order? Order { get; set; }
-
         public Batch? Batch { get; set; }
     }
 }

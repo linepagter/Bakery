@@ -6,18 +6,17 @@ namespace Bakery.Models
     {
         [Key]
         [Required]
-        public int OrderId { get; set; }
+        public int IngredientsId { get; set; }
 
         [Key]
         [Required]
-        public int IngredientId { get; set; }
+        public int BatchId { get; set; }
 
         [Required]
         public int Quantity { get; set; }
         
         [Required]
-        public Order? Order { get; set; }
-
+        public Ingredients? Ingredients { get; set; }
         public Batch? Batch { get; set; }
         
     }

@@ -23,5 +23,11 @@ namespace Bakery.Models
         [Required]
 
         public DateTime target_finish_time { get; set; }
+        
+        [Required]
+        public ICollection<Made_in>? MadeIns { get; set; }
+        
+        [Required]
+        public ICollection<Uses>? Uses { get; set; }
     }
 }

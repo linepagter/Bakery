@@ -17,10 +17,10 @@ namespace Bakery.Models
         public string Type {  get; set; }
 
         [Required]
-        public ICollection<Made_in>? Made_in { get; set; }
+        public ICollection<Made_in>? MadeIns { get; set; }
 
         [Required]
-        public Package Package { get; set; }
+        public ICollection<Package>? Packages { get; set; }
 
         [Required]
         public List_of_baking_goods List_Of_Baking_Goods { get; set; }
