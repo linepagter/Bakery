@@ -4,20 +4,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Bakery.Models
 {
     [Table("Ingredients")]
-    public class Ingredients
+    public class Ingredient
     {
         [Key]
         [Required]
-        public int IngredientsId { get; set; }
+        public int IngredientId { get; set; }
 
         [Required] 
         [MaxLength(100)] 
-        public string name { get; set; } = null!;
+        public string IngredientName { get; set; } = null!;
         
         [Required]
-        public ICollection<Has>? Has { get; set; }
+        public ICollection<Stock>? Stock { get; set; }
         
         [Required]
-        public ICollection<Uses>? Uses { get; set; }
+        public ICollection<Batch_Ingredient>? Batch_Ingredient { get; set; }
     }
 }

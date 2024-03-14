@@ -14,20 +14,20 @@ namespace Bakery.Models
 
         [Required]
         [MaxLength(200)]
-        public DateTime start_time { get; set; }
+        public DateTime startTime { get; set; }
 
         [Required]
 
-        public DateTime finish_time { get; set; }
+        public DateTime finishTime { get; set; }
 
         [Required]
 
-        public DateTime target_finish_time { get; set; }
+        public DateTime targetFinishTime { get; set; }
         
         [Required]
-        public ICollection<Made_in>? MadeIns { get; set; }
+        public ICollection<Order>? Order { get; set; }
         
         [Required]
-        public ICollection<Uses>? Uses { get; set; }
+        public ICollection<Batch_Ingredient>? BatchIngredient { get; set; }
     }
 }

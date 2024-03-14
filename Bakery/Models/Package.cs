@@ -10,7 +10,7 @@ namespace Bakery.Models
         
         [Key]
         [Required]
-        public int Trackid { get; set; }
+        public int TrackId { get; set; }
         
         [Required]
         public int OrderId { get; set; }

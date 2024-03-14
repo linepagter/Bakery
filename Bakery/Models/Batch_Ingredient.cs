@@ -2,18 +2,22 @@
 
 namespace Bakery.Models
 {
-    public class Made_in
+    public class Batch_Ingredient
     {
         [Key]
         [Required]
-        public int OrderId { get; set; }
+        public int IngredientsId { get; set; }
 
         [Key]
         [Required]
         public int BatchId { get; set; }
 
         [Required]
-        public Order? Order { get; set; }
+        public int Quantity { get; set; }
+        
+        [Required]
+        public Ingredient? Ingredients { get; set; }
         public Batch? Batch { get; set; }
+        
     }
 }

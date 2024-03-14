@@ -37,16 +37,16 @@ namespace Bakery.Data
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Uses>()
+            modelBuilder.Entity<Batch_Ingredient>()
                 .HasKey(i => new { i.IngredientsId, i.BatchId });
 
-            modelBuilder.Entity<Uses>()
+            modelBuilder.Entity<Batch_Ingredient>()
                 .HasOne(x => x.Ingredients)
                 .WithMany(y => y.Uses)
                 .HasForeignKey(f => f.IngredientsId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Uses>()
+            modelBuilder.Entity<Batch_Ingredient>()
                 .HasOne(o => o.Batch)
                 .WithMany(m => m.Uses)
                 .HasForeignKey(f => f.BatchId)
@@ -81,13 +81,13 @@ namespace Bakery.Data
         
         public DbSet<Batch> Batch => Set<Batch>();
         public DbSet<Has> Has => Set<Has>();
-        public DbSet<Ingredients> Ingredients => Set<Ingredients>();
+        public DbSet<Ingredient> Ingredients => Set<Ingredient>();
         public DbSet<List_of_baking_goods> ListOfBakingGoods => Set<List_of_baking_goods>();
         public DbSet<Made_in> MadeIns => Set<Made_in>();
         public DbSet<Order> Orders => Set<Order>();
         public DbSet<Package> Packages => Set<Package>();
         public DbSet<Stock> Stocks => Set<Stock>();
-        public DbSet<Uses> Uses => Set<Uses>();
+        public DbSet<Batch_Ingredient> Uses => Set<Batch_Ingredient>();
 
     }
 }
