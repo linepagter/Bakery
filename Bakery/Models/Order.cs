@@ -15,11 +15,11 @@ namespace Bakery.Models
         public string DeliveryPlace { get; set; }
 
         [Required]
-        public JSType.Date DeliveryDate {  get; set; }
+        public DateTime DeliveryDate {  get; set; }
         
         public ICollection<Batch>? Batch { get; set; }
         public ICollection<Package>? Packages { get; set; }
         
-        public List_of_baking_goods List_Of_Baking_Goods { get; set; }
+        public ListOfBakingGoods ListOfBakingGoods { get; set; }
     }
 }
