@@ -19,7 +19,6 @@ namespace Bakery.Models
 
         [Required]
         public string OrdreId { get; set; }
-
         
         [Required]
         public Order Order { get; set; }

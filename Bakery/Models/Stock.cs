@@ -14,6 +14,6 @@ namespace Bakery.Models
         public int Quantity { get; set; }
         
         [Required]
-        public ICollection<Has>? Has { get; set; }
+        public ICollection<Ingredient>? Ingredient { get; set; }
     }
 }
