@@ -13,5 +13,12 @@ public class BatchController: ControllerBase
     {
         _context = context;
     }
+
+    [HttpGet]
+    public ActionResult GetAsync()
+    {
+        return Ok();
+
+    }
     
 }
