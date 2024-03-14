@@ -53,10 +53,10 @@ public class List_of_baking_goodsController: ControllerBase
             if (!string.IsNullOrEmpty(input.FilterQuery))
                 query = query.Where(b => b.ListId.ToString().Contains(input.FilterQuery));
             var recordCount = await query.CountAsync();
-            query = query
-                    .OrderBy($"{input.SortColumn} {input.SortOrder}")
-                    .Skip(input.PageIndex * input.PageSize)
-                    .Take(input.PageSize);
+            //query = query
+                    // .OrderBy($"{input.SortColumn} {input.SortOrder}")
+                    // .Skip(input.PageIndex * input.PageSize)
+                    // .Take(input.PageSize);
 
             return new RestDTO<List_of_baking_goods[]>()
             {
@@ -86,7 +86,7 @@ public class List_of_baking_goodsController: ControllerBase
                 .FirstOrDefaultAsync();
             if (listBG != null)
             {
-                if (!string.IsNullOrEmpty(model.ListId))
+                // if (!string.IsNullOrEmpty(model.ListId))
                     listBG.ListId = model.ListId;
                 _context.ListOfBakingGoods.Update(listBG);
                 await _context.SaveChangesAsync();
