@@ -2,7 +2,7 @@
 
 namespace Bakery.Models
 {
-    public class Batch_Ingredient
+    public class BatchIngredient
     {
         [Key]
         [Required]

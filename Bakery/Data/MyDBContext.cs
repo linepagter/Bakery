@@ -22,16 +22,16 @@ namespace Bakery.Data
 
             
 
-            modelBuilder.Entity<Batch_Ingredient>()
+            modelBuilder.Entity<BatchIngredient>()
                 .HasKey(i => new { i.IngredientsId, i.BatchId });
 
-            modelBuilder.Entity<Batch_Ingredient>()
+            modelBuilder.Entity<BatchIngredient>()
                 .HasOne(x => x.Ingredients)
-                .WithMany(y => y.Batch_Ingredient)
+                .WithMany(y => y.BatchIngredient)
                 .HasForeignKey(f => f.IngredientsId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Batch_Ingredient>()
+            modelBuilder.Entity<BatchIngredient>()
                 .HasOne(o => o.Batch)
                 .WithMany(m => m.BatchIngredient)
                 .HasForeignKey(f => f.BatchId)
@@ -62,7 +62,7 @@ namespace Bakery.Data
         public DbSet<Order> Orders => Set<Order>();
         public DbSet<Package> Packages => Set<Package>();
         public DbSet<Stock> Stocks => Set<Stock>();
-        public DbSet<Batch_Ingredient> BatchIngredient => Set<Batch_Ingredient>();
+        public DbSet<BatchIngredient> BatchIngredient => Set<BatchIngredient>();
 
     }
 }
