@@ -18,6 +18,6 @@ namespace Bakery.Models
         public ICollection<Stock>? Stock { get; set; }
         
         [Required]
-        public ICollection<Batch_Ingredient>? Batch_Ingredient { get; set; }
+        public ICollection<BatchIngredient>? BatchIngredient { get; set; }
     }
 }

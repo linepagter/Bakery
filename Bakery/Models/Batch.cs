@@ -28,6 +28,6 @@ namespace Bakery.Models
         public ICollection<Order>? Order { get; set; }
         
         [Required]
-        public ICollection<Batch_Ingredient>? BatchIngredient { get; set; }
+        public ICollection<BatchIngredient>? BatchIngredient { get; set; }
     }
 }
