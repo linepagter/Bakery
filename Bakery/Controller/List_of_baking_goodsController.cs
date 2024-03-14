@@ -23,7 +23,7 @@ public class List_of_baking_goodsController: ControllerBase
      [HttpGet(Name = "GetListOfBakingGoods")]
         [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60)]
         [ManualValidationFilter]
-        public async Task<ActionResult<RestDTO<List_of_baking_goods[]>>> Get(
+        public async Task<ActionResult<RestDTO<ListOfBakingGoods[]>>> Get(
             [FromQuery] RequestDTO<ListOfBakingGoodsDTO> input)
         {
             if (!ModelState.IsValid)
@@ -58,7 +58,7 @@ public class List_of_baking_goodsController: ControllerBase
                     // .Skip(input.PageIndex * input.PageSize)
                     // .Take(input.PageSize);
 
-            return new RestDTO<List_of_baking_goods[]>()
+            return new RestDTO<ListOfBakingGoods[]>()
             {
                 Data = await query.ToArrayAsync(),
                 PageIndex = input.PageIndex,
@@ -79,7 +79,7 @@ public class List_of_baking_goodsController: ControllerBase
 
         [HttpPost(Name = "UpdateListOfBakingGoods")]
         [ResponseCache(NoStore = true)]
-        public async Task<RestDTO<List_of_baking_goods?>> Post(ListOfBakingGoodsDTO model)
+        public async Task<RestDTO<ListOfBakingGoods?>> Post(ListOfBakingGoodsDTO model)
         {
             var listBG = await _context.ListOfBakingGoods
                 .Where(b => b.ListId == model.ListId)
@@ -92,7 +92,7 @@ public class List_of_baking_goodsController: ControllerBase
                 await _context.SaveChangesAsync();
             };
 
-            return new RestDTO<List_of_baking_goods?>()
+            return new RestDTO<ListOfBakingGoods?>()
             {
                 Data = listBG,
                 Links = new List<LinkDTO>
@@ -111,7 +111,7 @@ public class List_of_baking_goodsController: ControllerBase
 
         [HttpDelete(Name = "DeleteListOfBakingGoods")]
         [ResponseCache(NoStore = true)]
-        public async Task<RestDTO<List_of_baking_goods?>> Delete(int id)
+        public async Task<RestDTO<ListOfBakingGoods?>> Delete(int id)
         {
             var listBG = await _context.ListOfBakingGoods
                 .Where(b => b.ListId == id)
@@ -122,7 +122,7 @@ public class List_of_baking_goodsController: ControllerBase
                 await _context.SaveChangesAsync();
             };
 
-            return new RestDTO<List_of_baking_goods?>()
+            return new RestDTO<ListOfBakingGoods?>()
             {
                 Data = listBG,
                 Links = new List<LinkDTO>

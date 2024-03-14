@@ -5,7 +5,7 @@ namespace Bakery.Models
     
 {
     [Table ("Listofbakinggoods")]
-    public class List_of_baking_goods
+    public class ListOfBakingGoods
     {
         [Key]
         [Required]
@@ -18,7 +18,7 @@ namespace Bakery.Models
         public string Type { get; set; }
 
         [Required]
-        public string OrdreId { get; set; }
+        public int OrdreId { get; set; }
         
         [Required]
         public Order Order { get; set; }

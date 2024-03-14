@@ -14,15 +14,15 @@ namespace Bakery.Models
 
         [Required]
         [MaxLength(200)]
-        public DateTime startTime { get; set; }
+        public DateTime StartTime { get; set; }
 
         [Required]
 
-        public DateTime finishTime { get; set; }
+        public DateTime FinishTime { get; set; }
 
         [Required]
 
-        public DateTime targetFinishTime { get; set; }
+        public DateTime TargetFinishTime { get; set; }
         
         [Required]
         public ICollection<Order>? Order { get; set; }
