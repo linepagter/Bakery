@@ -112,26 +112,38 @@ namespace Bakery.Controller
             {
                 new BatchIngredient
                 {
-                    Batch = batch.FirstOrDefault(b => b.BatchId == 2), Quantity = 50000,
-                    Ingredients = ingredients.FirstOrDefault(i => i.IngredientId == 1)
+                    BatchId = batch.FirstOrDefault(b => b.BatchId == 1).BatchId,
+                    IngredientsId = ingredients.FirstOrDefault(i => i.IngredientId == 1).IngredientId,
+                    Batch = batch.FirstOrDefault(b => b.BatchId == 1),
+                    Ingredients = ingredients.FirstOrDefault(i => i.IngredientId == 1),
+                    Quantity = 50000
                 },
+               
                 new BatchIngredient
                 {
+                    BatchId = batch.FirstOrDefault(b => b.BatchId == 1).BatchId,
+                    IngredientsId = ingredients.FirstOrDefault(i => i.IngredientId == 1).IngredientId,
                     Batch = batch.FirstOrDefault(b => b.BatchId == 2), Quantity = 30,
                     Ingredients = ingredients.FirstOrDefault(i => i.IngredientId == 2)
                 },
                 new BatchIngredient
                 {
+                    BatchId = batch.FirstOrDefault(b => b.BatchId == 1).BatchId,
+                    IngredientsId = ingredients.FirstOrDefault(i => i.IngredientId == 1).IngredientId,
                     Batch = batch.FirstOrDefault(b => b.BatchId == 2), Quantity = 20,
                     Ingredients = ingredients.FirstOrDefault(i => i.IngredientId == 3)
                 },
                 new BatchIngredient
                 {
+                    BatchId = batch.FirstOrDefault(b => b.BatchId == 1).BatchId,
+                    IngredientsId = ingredients.FirstOrDefault(i => i.IngredientId == 1).IngredientId,
                     Batch = batch.FirstOrDefault(b => b.BatchId == 2), Quantity = 30,
                     Ingredients = ingredients.FirstOrDefault(i => i.IngredientId == 4)
                 },
                 new BatchIngredient
                 {
+                    BatchId = batch.FirstOrDefault(b => b.BatchId == 1).BatchId,
+                    IngredientsId = ingredients.FirstOrDefault(i => i.IngredientId == 1).IngredientId,
                     Batch = batch.FirstOrDefault(b => b.BatchId == 2), Quantity = 0,
                     Ingredients = ingredients.FirstOrDefault(i => i.IngredientId == 5)
                 }
@@ -151,11 +163,7 @@ namespace Bakery.Controller
             {
                 _context.ListOfBakingGoods.Add(l);
             }
-
-            foreach (var bi in batchIngredient)
-            {
-                _context.BatchIngredient.Add(bi);
-            }
+            
             foreach (var b in batch)
             {
                 _context.Batch.Add(b);
@@ -169,6 +177,11 @@ namespace Bakery.Controller
             foreach (var i in ingredients)
             {
                 _context.Ingredients.Add(i);
+            }
+            
+            foreach (var bi in batchIngredient)
+            {
+                _context.BatchIngredient.Add(bi);
             }
 
             _context.SaveChanges();
