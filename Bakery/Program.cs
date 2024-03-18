@@ -31,7 +31,7 @@ namespace Bakery
             app.UseSwaggerUI();
             app.UseHttpsRedirection();
             app.MapControllers();
-
+            app.UseAuthentication();
             app.Run();
         }
     }
