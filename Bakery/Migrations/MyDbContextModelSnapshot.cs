@@ -45,7 +45,7 @@ namespace Bakery.Migrations
                     b.ToTable("Batch");
                 });
 
-            modelBuilder.Entity("Bakery.Models.Batch_Ingredient", b =>
+            modelBuilder.Entity("Bakery.Models.BatchIngredient", b =>
                 {
                     b.Property<int>("IngredientsId")
                         .HasColumnType("int");
@@ -153,10 +153,15 @@ namespace Bakery.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockId"));
 
+                    b.Property<int>("IngredientId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("StockId");
+
+                    b.HasIndex("IngredientId");
 
                     b.ToTable("Stock");
                 });
@@ -176,22 +181,7 @@ namespace Bakery.Migrations
                     b.ToTable("BatchOrder");
                 });
 
-            modelBuilder.Entity("IngredientStock", b =>
-                {
-                    b.Property<int>("IngredientId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StockId")
-                        .HasColumnType("int");
-
-                    b.HasKey("IngredientId", "StockId");
-
-                    b.HasIndex("StockId");
-
-                    b.ToTable("IngredientStock");
-                });
-
-            modelBuilder.Entity("Bakery.Models.Batch_Ingredient", b =>
+            modelBuilder.Entity("Bakery.Models.BatchIngredient", b =>
                 {
                     b.HasOne("Bakery.Models.Batch", "Batch")
                         .WithMany("BatchIngredient")
@@ -200,7 +190,7 @@ namespace Bakery.Migrations
                         .IsRequired();
 
                     b.HasOne("Bakery.Models.Ingredient", "Ingredients")
-                        .WithMany("Batch_Ingredient")
+                        .WithMany("BatchIngredient")
                         .HasForeignKey("IngredientsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -232,6 +222,17 @@ namespace Bakery.Migrations
                     b.Navigation("Order");
                 });
 
+            modelBuilder.Entity("Bakery.Models.Stock", b =>
+                {
+                    b.HasOne("Bakery.Models.Ingredient", "Ingredient")
+                        .WithMany("Stock")
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ingredient");
+                });
+
             modelBuilder.Entity("BatchOrder", b =>
                 {
                     b.HasOne("Bakery.Models.Batch", null)
@@ -247,21 +248,6 @@ namespace Bakery.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("IngredientStock", b =>
-                {
-                    b.HasOne("Bakery.Models.Ingredient", null)
-                        .WithMany()
-                        .HasForeignKey("IngredientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Bakery.Models.Stock", null)
-                        .WithMany()
-                        .HasForeignKey("StockId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Bakery.Models.Batch", b =>
                 {
                     b.Navigation("BatchIngredient");
@@ -269,7 +255,9 @@ namespace Bakery.Migrations
 
             modelBuilder.Entity("Bakery.Models.Ingredient", b =>
                 {
-                    b.Navigation("Batch_Ingredient");
+                    b.Navigation("BatchIngredient");
+
+                    b.Navigation("Stock");
                 });
 
             modelBuilder.Entity("Bakery.Models.Order", b =>
