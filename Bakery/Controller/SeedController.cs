@@ -10,9 +10,9 @@ using Bakery.Models;
 
 namespace Bakery.Controller
 {
-    [Microsoft.AspNetCore.Components.Route("[controller")]
+    [Microsoft.AspNetCore.Mvc.Route("[controller]")]
     [ApiController]
-    public class SeedController
+    public class SeedController:ControllerBase
     {
          private readonly MyDbContext _context;
          private IWebHostEnvironment _environment;
@@ -32,9 +32,9 @@ namespace Bakery.Controller
         {
             var skippedRows = 0;
             Console.WriteLine("Seeding data");
-            var order1 = new Order { OrderId = 1, DeliveryPlace = "Finlandsgade 17", DeliveryDate = new DateTime(2024,08,12,08,00,00) };
+            var order1 = new Order { DeliveryPlace = "Finlandsgade 17", DeliveryDate = new DateTime(2024,08,12,08,00,00) };
             
-            var package1 = new Package { TrackId = 12022, OrderId=1 };
+            var package1 = new Package { Order=order1};
             
             _context.Orders.Add(order1);
             _context.Packages.Add(package1);
@@ -43,8 +43,7 @@ namespace Bakery.Controller
             return new JsonResult(new
             {
                 Package = _context.Packages.Count(),
-                Order = _context.Orders.Count(),
-                SkippedRows = skippedRows
+                Order = _context.Orders.Count()
                 
             });
 
