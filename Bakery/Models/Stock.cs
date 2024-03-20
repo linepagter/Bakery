@@ -13,6 +13,10 @@ namespace Bakery.Models
         [Required]
         public int Quantity { get; set; }
         
+        // [Required]
+        // public int IngredientId { get; set; }
+        //
+        //
         [Required]
         public Ingredient? Ingredient { get; set; }
     }

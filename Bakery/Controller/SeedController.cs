@@ -30,19 +30,20 @@ namespace Bakery.Controller
 
         public async Task<IActionResult> Put()
         {
-             var order = new List<Order>
+             var order = new Order[]
             {
                 new Order { DeliveryPlace = "Finlandsgade 17", DeliveryDate = new DateTime(2024, 08, 12, 08, 00, 00) },
                 new Order { DeliveryPlace = "Katrinebjergvej 2", DeliveryDate = new DateTime(2024, 10, 11, 10, 00, 00) }
             };
 
-            var package = new List<Package>
+            var package = new Package[]
             {
-                new Package { Order = order.FirstOrDefault(p => p.OrderId == 1) },
-                new Package { Order = order.FirstOrDefault(p => p.OrderId == 1) }
+                new Package { OrderId = order[0].OrderId },
+                new Package { OrderId = order[0].OrderId }
             };
+            
 
-            var ingredients = new List<Ingredient>
+            var ingredients = new Ingredient[]
             {
                 new Ingredient { IngredientName = "Leftover cake" },
                 new Ingredient { IngredientName = "Raspberry jam" },
@@ -55,34 +56,35 @@ namespace Bakery.Controller
 
             };
 
-            var stock = new List<Stock>
+           
+            var stock = new Stock[]
             {
-                new Stock { Quantity = 100000, Ingredient = ingredients.FirstOrDefault(i => i.IngredientId == 6) },
-                new Stock { Quantity = 242000, Ingredient = ingredients.FirstOrDefault(i => i.IngredientId == 7) },
-                new Stock { Quantity = 10000, Ingredient = ingredients.FirstOrDefault(i => i.IngredientId == 8) }
+                new Stock { Quantity = 100000, Ingredient = ingredients[5] },
+                new Stock { Quantity = 242000, Ingredient = ingredients[6] },
+                new Stock { Quantity = 10000, Ingredient = ingredients[7]  }
             };
 
-            var listOfBakingGoods = new List<ListOfBakingGoods>
+            var listOfBakingGoods = new ListOfBakingGoods[]
             {
                 new ListOfBakingGoods
-                    { Order = order.FirstOrDefault(l => l.OrderId == 1), Quantity = 300, Type = "Alexandertorte" },
+                    { OrdreId = order[0].OrderId, Quantity = 300, Type = "Alexandertorte" },
                 new ListOfBakingGoods
-                    { Order = order.FirstOrDefault(l => l.OrderId == 1), Quantity = 100, Type = "Buttercookies" },
+                    { OrdreId = order[0].OrderId, Quantity = 100, Type = "Buttercookies" },
                 new ListOfBakingGoods
-                    { Order = order.FirstOrDefault(l => l.OrderId == 1), Quantity = 100, Type = "Studenterbrød" },
+                    { OrdreId = order[0].OrderId, Quantity = 100, Type = "Studenterbrød" },
                 new ListOfBakingGoods
-                    { Order = order.FirstOrDefault(l => l.OrderId == 1), Quantity = 200, Type = "Romkugler" },
+                    { OrdreId = order[0].OrderId, Quantity = 200, Type = "Romkugler" },
                 new ListOfBakingGoods
-                    { Order = order.FirstOrDefault(l => l.OrderId == 2), Quantity = 2900, Type = "Alexandertorte" },
+                    { OrdreId = order[1].OrderId, Quantity = 2900, Type = "Alexandertorte" },
                 new ListOfBakingGoods
-                    { Order = order.FirstOrDefault(l => l.OrderId == 2), Quantity = 1499, Type = "Buttercookies" },
+                    { OrdreId = order[1].OrderId, Quantity = 1499, Type = "Buttercookies" },
                 new ListOfBakingGoods
-                    { Order = order.FirstOrDefault(l => l.OrderId == 2), Quantity = 800, Type = "Studenterbrød" },
+                    { OrdreId = order[1].OrderId, Quantity = 800, Type = "Studenterbrød" },
                 new ListOfBakingGoods
-                    { Order = order.FirstOrDefault(l => l.OrderId == 2), Quantity = 1800, Type = "Romkugler" }
+                    { OrdreId = order[1].OrderId, Quantity = 1800, Type = "Romkugler" }
             };
 
-            var batch = new List<Batch>
+            var batch = new Batch[]
             {
                 new Batch
                 {
@@ -108,91 +110,58 @@ namespace Bakery.Controller
             };
 
 
-            var batchIngredient = new List<BatchIngredient>
+            var batchIngredient = new BatchIngredient[]
             {
                 new BatchIngredient
                 {
-                    BatchId = batch.FirstOrDefault(b => b.BatchId == 1).BatchId,
-                    IngredientsId = ingredients.FirstOrDefault(i => i.IngredientId == 1).IngredientId,
-                    Batch = batch.FirstOrDefault(b => b.BatchId == 1),
-                    Ingredients = ingredients.FirstOrDefault(i => i.IngredientId == 1),
-                    Quantity = 50000
+                     BatchId = batch[0].BatchId,
+                     IngredientsId = ingredients[0].IngredientId,
+                     Quantity = 50000
                 },
                
                 new BatchIngredient
                 {
-                    BatchId = batch.FirstOrDefault(b => b.BatchId == 1).BatchId,
-                    IngredientsId = ingredients.FirstOrDefault(i => i.IngredientId == 1).IngredientId,
-                    Batch = batch.FirstOrDefault(b => b.BatchId == 2), Quantity = 30,
-                    Ingredients = ingredients.FirstOrDefault(i => i.IngredientId == 2)
+                    BatchId = batch[0].BatchId,
+                    IngredientsId = ingredients[1].IngredientId,
+                    Quantity = 30
                 },
                 new BatchIngredient
                 {
-                    BatchId = batch.FirstOrDefault(b => b.BatchId == 1).BatchId,
-                    IngredientsId = ingredients.FirstOrDefault(i => i.IngredientId == 1).IngredientId,
-                    Batch = batch.FirstOrDefault(b => b.BatchId == 2), Quantity = 20,
-                    Ingredients = ingredients.FirstOrDefault(i => i.IngredientId == 3)
+                    BatchId = batch[0].BatchId,
+                    IngredientsId = ingredients[2].IngredientId,
+                    Quantity = 20
                 },
                 new BatchIngredient
                 {
-                    BatchId = batch.FirstOrDefault(b => b.BatchId == 1).BatchId,
-                    IngredientsId = ingredients.FirstOrDefault(i => i.IngredientId == 1).IngredientId,
-                    Batch = batch.FirstOrDefault(b => b.BatchId == 2), Quantity = 30,
-                    Ingredients = ingredients.FirstOrDefault(i => i.IngredientId == 4)
+                    BatchId = batch[0].BatchId,
+                    IngredientsId = ingredients[3].IngredientId,
+                    Quantity = 30
                 },
                 new BatchIngredient
                 {
-                    BatchId = batch.FirstOrDefault(b => b.BatchId == 1).BatchId,
-                    IngredientsId = ingredients.FirstOrDefault(i => i.IngredientId == 1).IngredientId,
-                    Batch = batch.FirstOrDefault(b => b.BatchId == 2), Quantity = 0,
-                    Ingredients = ingredients.FirstOrDefault(i => i.IngredientId == 5)
+                    BatchId = batch[0].BatchId,
+                    IngredientsId = ingredients[4].IngredientId,
+                    Quantity = 0
                 }
             };
 
-            foreach (var o in order)
-            {
-                _context.Orders.Add(o);
-            }
-
-            foreach (var p in package)
-            {
-                _context.Packages.Add(p);
-            }
             
-            foreach (var l in listOfBakingGoods)
-            {
-                _context.ListOfBakingGoods.Add(l);
-            }
-            
-            foreach (var b in batch)
-            {
-                _context.Batch.Add(b);
-            }
-
-            foreach (var s in stock)
-            {
-                _context.Stocks.Add(s);
-            }
-
-            foreach (var i in ingredients)
-            {
-                _context.Ingredients.Add(i);
-            }
-            
-            foreach (var bi in batchIngredient)
-            {
-                _context.BatchIngredient.Add(bi);
-            }
-
-            _context.SaveChanges();
+                _context.Orders.AddRange(order);
+                _context.Packages.AddRange(package);
+                _context.ListOfBakingGoods.AddRange(listOfBakingGoods); 
+                _context.Batch.AddRange(batch);
+                _context.Stocks.AddRange(stock);
+                _context.Ingredients.AddRange(ingredients);
+                _context.BatchIngredient.AddRange(batchIngredient);
+                await _context.SaveChangesAsync();
             
             return new JsonResult(new
             {
                 Package = _context.Packages.Count(),
                 Order = _context.Orders.Count(),
-                batchIngredient = _context.BatchIngredient.Count(),
                 batch = _context.Batch.Count(),
                 ingredients = _context.Ingredients.Count(),
+                batchIngredient = _context.BatchIngredient.Count(),
                 stock = _context.Stocks.Count(),
                 listOfBakingGoods = _context.ListOfBakingGoods.Count()
                 
