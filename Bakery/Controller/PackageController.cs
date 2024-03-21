@@ -29,6 +29,7 @@ public class PackageController: ControllerBase
             select new
             {
                 TrackId = p.TrackId,
+                Address = o.DeliveryPlace, //Grundet D3
                 GPSCoordinates = o.GPSCoordinates //Grundet D3
             };
 
