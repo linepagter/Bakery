@@ -2,6 +2,7 @@ using Bakery.Data;
 using Bakery.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Bakery.Controller;
 
@@ -17,7 +18,7 @@ public class BatchController: ControllerBase
     }
     
     [HttpGet("Query7")]
-    public async Task<ActionResult<double>> GetDelay()
+    public ActionResult<double> GetDelay()
     {
         List<int> batchIds = new List<int> { 4,5,6 };
 
@@ -28,9 +29,9 @@ public class BatchController: ControllerBase
                 Delay = (b.FinishTime - b.TargetFinishTime).TotalMinutes
             };
 
-        var averageDelay = await query.AverageAsync(b => b.Delay);
+        var average = query.AsEnumerable().Average(b => b.Delay);
         
-        return Ok(averageDelay);
+        return Ok(average);
     }
     
 }
