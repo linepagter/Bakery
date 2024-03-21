@@ -38,7 +38,7 @@ public class IngredientsController : ControllerBase
     public ActionResult<IEnumerable<Batch>> GetIngredientsForBatch(int batchId)
     {
         var ingredients = _context.Batch
-            .Where(u => u.BatchId == batchId)  // Filtrer baseret på batchId
+            .Where(u => u.BatchId == batchId)  
             .Join(_context.Ingredients,
                 u => u.IngredientId, i => i.IngredientId,
                 (u, i) => new Batch
