@@ -20,10 +20,10 @@ public class OrderController: ControllerBase
     public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
     {
 
-        List<int> orderIds = new List<int> { 4 };
+        int orderId =  3 ;
 
         var query = from o in _context.Orders
-            where orderIds.Contains(o.OrderId)
+            where orderId.Equals(o.OrderId)
             select new
             {
                 DeliveryAdress = o.DeliveryPlace,
