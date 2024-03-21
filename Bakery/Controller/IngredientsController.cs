@@ -34,5 +34,69 @@ public class IngredientsController: ControllerBase
             var result = query.ToList();
             return Ok(result);
         }
+        
+        [HttpPost("C1")]
+        public async Task<ActionResult<IEnumerable<Ingredient>>> AddIngredientAndQuantity(IngredientDTO ingredientDTO)
+        {
+            //Add a new ingredient and quantity to the stock
+            if (ingredientDTO.StockQuantity < 0)
+            {
+                return BadRequest("Ingredient quantity must be non-negative");
+            }
+            
+            var newIngredient = new Ingredient
+            {
+                IngredientName = ingredientDTO.name,
+                StockQuantity = ingredientDTO.StockQuantity
+            };
+
+            _context.Ingredients.Add(newIngredient);
+            await _context.SaveChangesAsync();
+
+            return Ok(newIngredient);
+        }
+        
+        [HttpPut("C2")]
+        public async Task<ActionResult<IEnumerable<Ingredient>>> UpdateIngredientStock(int id, IngredientDTO ingredientDTO)
+        {
+            //Update a quantity of an ingredient in stock
+            var ingredient = await _context.Ingredients.FindAsync(id);
+            
+            if (ingredientDTO.StockQuantity < 0)
+            {
+                return BadRequest("Ingredient quantity must be non-negative");
+            }
+
+            if (ingredient == null)
+            {
+                return NotFound();
+            }
+
+            ingredient.StockQuantity = ingredientDTO.StockQuantity;
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+        
+        [HttpDelete("C3")]
+        public async Task<ActionResult<IEnumerable<Ingredient>>> DeleteIngredient(int id)
+        {
+            //Delete an ingredient from the stock
+            var ingredient = await _context.Ingredients.FindAsync(id);
+
+            if (ingredient == null)
+            {
+                return NotFound();
+            }
+
+            _context.Ingredients.Remove(ingredient);
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+        
+    
     
 }
