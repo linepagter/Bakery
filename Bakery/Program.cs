@@ -1,5 +1,4 @@
 using Bakery.Data;
-using Bakery.Swagger;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;

@@ -15,7 +15,7 @@ namespace Bakery.Models
         public int Quantity { get; set; }
 
         [Required]
-        public string Type { get; set; }
+        public string BakingGoodName { get; set; }
 
         [Required]
         public ICollection<BakingGoodOrder>? BakingGoodOrders { get; set; }

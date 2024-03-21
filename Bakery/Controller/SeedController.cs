@@ -71,21 +71,21 @@ namespace Bakery.Controller
             var bakingGood = new BakingGood[]
             {
                 new BakingGood
-                    { Quantity = 300, Type = "Alexandertorte" },
+                    { Quantity = 300, BakingGoodName = "Alexandertorte" },
                 new BakingGood
-                    { Quantity = 100, Type = "Buttercookies" },
+                    { Quantity = 100, BakingGoodName = "Buttercookies" },
                 new BakingGood
-                    { Quantity = 100, Type = "Studenterbrød" },
+                    { Quantity = 100, BakingGoodName = "Studenterbrød" },
                 new BakingGood
-                    { Quantity = 200, Type = "Romkugler" },
+                    { Quantity = 200, BakingGoodName = "Romkugler" },
                 new BakingGood
-                    { Quantity = 2900, Type = "Alexandertorte" },
+                    { Quantity = 2900, BakingGoodName = "Alexandertorte" },
                 new BakingGood
-                    { Quantity = 1499, Type = "Buttercookies" },
+                    { Quantity = 1499, BakingGoodName = "Buttercookies" },
                 new BakingGood
-                    { Quantity = 800, Type = "Studenterbrød" },
+                    { Quantity = 800, BakingGoodName = "Studenterbrød" },
                 new BakingGood
-                    { Quantity = 1800, Type = "Romkugler" }
+                    { Quantity = 1800, BakingGoodName = "Romkugler" }
             };
             
             var bakingGoodOrder = new BakingGoodOrder[]

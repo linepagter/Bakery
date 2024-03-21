@@ -22,7 +22,7 @@ public class ListOfBakingGoodQueryControl:ControllerBase
     public async Task<ActionResult<IEnumerable<BakingGood>>> GetAll()
     {
         var query = from bg in _context.BakingGoods
-            group bg by bg.Type into g
+            group bg by bg.BakingGoodName into g
             orderby g.Key ascending
             select new
             {
