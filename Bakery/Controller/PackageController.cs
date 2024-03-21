@@ -24,10 +24,12 @@ public class PackageController: ControllerBase
     {
 
         var query = from p in _context.Packages
+            join o in _context.Orders on p.OrderId equals o.OrderId //Joiner grundet D3
             where orderId.Equals(p.OrderId)
             select new
             {
                 TrackId = p.TrackId,
+                GPSCoordinates = o.GPSCoordinates //Grundet D3
             };
 
         var result = query.ToList();
