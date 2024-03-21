@@ -35,9 +35,10 @@ namespace Bakery.Controller
                 new Order
                 {
                     DeliveryPlace = "Finlandsgade 17", 
-                    DeliveryDate = "12082024 0800" 
+                    DeliveryDate = "12082024 0800",
+                    GPSCoordinates = "56.17202054, 10.19114428"
                 },
-                new Order { DeliveryPlace = "Katrinebjergvej 2", DeliveryDate = "11102024 1000"}
+                new Order { DeliveryPlace = "Katrinebjergvej 2", DeliveryDate = "11102024 1000", GPSCoordinates = "35.464646, 10.432566"}
             };
 
             var package = new Package[]
@@ -49,13 +50,13 @@ namespace Bakery.Controller
 
             var ingredients = new Ingredient[]
             {
-                new Ingredient { IngredientName = "Leftover cake", StockQuantity = 5000 },
-                new Ingredient { IngredientName = "Raspberry jam" , StockQuantity = 10},
-                new Ingredient { IngredientName = "Cocoa", StockQuantity = 200},
-                new Ingredient { IngredientName = "Rum", StockQuantity = 123},
-                new Ingredient { IngredientName = "coconut flakes", StockQuantity = 400},
+                new Ingredient { IngredientName = "Leftover cake", StockQuantity = 5000, Allergens = "Gluten"},
+                new Ingredient { IngredientName = "Raspberry jam" , StockQuantity = 10, Allergens = "Berries"},
+                new Ingredient { IngredientName = "Cocoa", StockQuantity = 200, Allergens = "Koffein"},
+                new Ingredient { IngredientName = "Rum", StockQuantity = 123, Allergens = "Alkohol"},
+                new Ingredient { IngredientName = "coconut flakes", StockQuantity = 400, Allergens = "Nuts"},
                 new Ingredient { IngredientName = "Sugar" , StockQuantity = 100000},
-                new Ingredient { IngredientName = "Flour" , StockQuantity = 242000},
+                new Ingredient { IngredientName = "Flour" , StockQuantity = 242000, Allergens = "Flour"},
                 new Ingredient { IngredientName = "Salt", StockQuantity =10000}
 
             };
