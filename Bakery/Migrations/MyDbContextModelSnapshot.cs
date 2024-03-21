@@ -22,6 +22,41 @@ namespace Bakery.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Bakery.Models.BakingGood", b =>
+                {
+                    b.Property<int>("BakingGoodId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BakingGoodId"));
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BakingGoodId");
+
+                    b.ToTable("Bakinggood");
+                });
+
+            modelBuilder.Entity("Bakery.Models.BakingGoodOrder", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BakingGoodId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId", "BakingGoodId");
+
+                    b.HasIndex("BakingGoodId");
+
+                    b.ToTable("BakingGoodOrders");
+                });
+
             modelBuilder.Entity("Bakery.Models.Batch", b =>
                 {
                     b.Property<int>("BatchId")
@@ -84,32 +119,6 @@ namespace Bakery.Migrations
                     b.ToTable("Ingredients");
                 });
 
-            modelBuilder.Entity("Bakery.Models.ListOfBakingGoods", b =>
-                {
-                    b.Property<int>("ListId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ListId"));
-
-                    b.Property<int>("OrdreId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ListId");
-
-                    b.HasIndex("OrdreId")
-                        .IsUnique();
-
-                    b.ToTable("Listofbakinggoods");
-                });
-
             modelBuilder.Entity("Bakery.Models.Order", b =>
                 {
                     b.Property<int>("OrderId")
@@ -163,6 +172,25 @@ namespace Bakery.Migrations
                     b.ToTable("BatchOrder");
                 });
 
+            modelBuilder.Entity("Bakery.Models.BakingGoodOrder", b =>
+                {
+                    b.HasOne("Bakery.Models.BakingGood", "BakingGoods")
+                        .WithMany("BakingGoodOrders")
+                        .HasForeignKey("BakingGoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Bakery.Models.Order", "Order")
+                        .WithMany("BakingGoodOrders")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BakingGoods");
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("Bakery.Models.BatchIngredient", b =>
                 {
                     b.HasOne("Bakery.Models.Batch", "Batch")
@@ -180,17 +208,6 @@ namespace Bakery.Migrations
                     b.Navigation("Batch");
 
                     b.Navigation("Ingredients");
-                });
-
-            modelBuilder.Entity("Bakery.Models.ListOfBakingGoods", b =>
-                {
-                    b.HasOne("Bakery.Models.Order", "Order")
-                        .WithOne("ListOfBakingGoods")
-                        .HasForeignKey("Bakery.Models.ListOfBakingGoods", "OrdreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Bakery.Models.Package", b =>
@@ -219,6 +236,11 @@ namespace Bakery.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Bakery.Models.BakingGood", b =>
+                {
+                    b.Navigation("BakingGoodOrders");
+                });
+
             modelBuilder.Entity("Bakery.Models.Batch", b =>
                 {
                     b.Navigation("BatchIngredient");
@@ -231,8 +253,7 @@ namespace Bakery.Migrations
 
             modelBuilder.Entity("Bakery.Models.Order", b =>
                 {
-                    b.Navigation("ListOfBakingGoods")
-                        .IsRequired();
+                    b.Navigation("BakingGoodOrders");
 
                     b.Navigation("Packages");
                 });

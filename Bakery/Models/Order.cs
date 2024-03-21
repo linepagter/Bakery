@@ -20,6 +20,8 @@ namespace Bakery.Models
         public ICollection<Batch>? Batch { get; set; }
         public ICollection<Package>? Packages { get; set; }
         
-        public ListOfBakingGoods ListOfBakingGoods { get; set; }
+        
+        [Required]
+        public ICollection<BakingGoodOrder>? BakingGoodOrders { get; set; }
     }
 }

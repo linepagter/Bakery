@@ -68,24 +68,36 @@ namespace Bakery.Controller
             //     new Stock { Quantity = 10000, Ingredient = ingredients[7]  }
             // };
 
-            var listOfBakingGoods = new ListOfBakingGoods[]
+            var bakingGood = new BakingGood[]
             {
-                new ListOfBakingGoods
-                    { Order = order[0], Quantity = 300, Type = "Alexandertorte" },
-                new ListOfBakingGoods
-                    { Order = order[0], Quantity = 100, Type = "Buttercookies" },
-                new ListOfBakingGoods
-                    { Order = order[0], Quantity = 100, Type = "Studenterbrød" },
-                new ListOfBakingGoods
-                    { Order = order[0], Quantity = 200, Type = "Romkugler" },
-                new ListOfBakingGoods
-                    { Order = order[1], Quantity = 2900, Type = "Alexandertorte" },
-                new ListOfBakingGoods
-                    { Order = order[1], Quantity = 1499, Type = "Buttercookies" },
-                new ListOfBakingGoods
-                    { Order = order[1], Quantity = 800, Type = "Studenterbrød" },
-                new ListOfBakingGoods
-                    { Order = order[1], Quantity = 1800, Type = "Romkugler" }
+                new BakingGood
+                    { Quantity = 300, Type = "Alexandertorte" },
+                new BakingGood
+                    { Quantity = 100, Type = "Buttercookies" },
+                new BakingGood
+                    { Quantity = 100, Type = "Studenterbrød" },
+                new BakingGood
+                    { Quantity = 200, Type = "Romkugler" },
+                new BakingGood
+                    { Quantity = 2900, Type = "Alexandertorte" },
+                new BakingGood
+                    { Quantity = 1499, Type = "Buttercookies" },
+                new BakingGood
+                    { Quantity = 800, Type = "Studenterbrød" },
+                new BakingGood
+                    { Quantity = 1800, Type = "Romkugler" }
+            };
+            
+            var bakingGoodOrder = new BakingGoodOrder[]
+            {
+                new BakingGoodOrder { Order = order[0], BakingGoods = bakingGood[0] },
+                new BakingGoodOrder { Order = order[0], BakingGoods = bakingGood[1] },
+                new BakingGoodOrder { Order = order[0], BakingGoods = bakingGood[2] },
+                new BakingGoodOrder { Order = order[0], BakingGoods = bakingGood[3] },
+                new BakingGoodOrder { Order = order[1], BakingGoods = bakingGood[4] },
+                new BakingGoodOrder { Order = order[1], BakingGoods = bakingGood[5] },
+                new BakingGoodOrder { Order = order[1], BakingGoods = bakingGood[6] },
+                new BakingGoodOrder { Order = order[1], BakingGoods = bakingGood[7] },
             };
 
             var batch = new Batch[]
@@ -154,18 +166,13 @@ namespace Bakery.Controller
                 try
                 {
                     //_context.Stocks.AddRange(stock);  
-                    //await _context.SaveChangesAsync();
                     _context.Ingredients.AddRange(ingredients);
-                    await _context.SaveChangesAsync();
                     _context.Batch.AddRange(batch);
-                    await _context.SaveChangesAsync();
                     _context.Orders.AddRange(order);
-                    await _context.SaveChangesAsync();
                     _context.Packages.AddRange(package);
-                    await _context.SaveChangesAsync();
-                    _context.ListOfBakingGoods.AddRange(listOfBakingGoods); 
-                    await _context.SaveChangesAsync();
+                    _context.BakingGoods.AddRange(bakingGood); 
                     _context.BatchIngredient.AddRange(batchIngredient);
+                    _context.BakingGoodOrders.AddRange(bakingGoodOrder);
                     await _context.SaveChangesAsync();
                     transaction.Commit();
                 }
@@ -186,7 +193,7 @@ namespace Bakery.Controller
                 ingredients = _context.Ingredients.Count(),
                 batchIngredient = _context.BatchIngredient.Count(),
                 //stock = _context.Stocks.Count(),
-                listOfBakingGoods = _context.ListOfBakingGoods.Count()
+                BakingGoods = _context.BakingGoods.Count()
                 
                 
             });

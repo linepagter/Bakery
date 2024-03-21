@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Bakery.Models
     
 {
-    [Table ("Listofbakinggoods")]
-    public class ListOfBakingGoods
+    [Table ("Bakinggood")]
+    public class BakingGood
     {
         [Key]
         [Required]
-        public int ListId { get; set; }
+        public int BakingGoodId { get; set; }
 
         [Required]
         public int Quantity { get; set; }
@@ -18,10 +18,8 @@ namespace Bakery.Models
         public string Type { get; set; }
 
         [Required]
-        public int OrdreId { get; set; }
+        public ICollection<BakingGoodOrder>? BakingGoodOrders { get; set; }
         
-        [Required]
-        public Order Order { get; set; }
 
     }
 }

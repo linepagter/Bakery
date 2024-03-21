@@ -21,15 +21,15 @@ public class ListOfBakingGoodsController: ControllerBase
     }
     
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ListOfBakingGoods>>> GetListOfBakingGoods()
+        public async Task<ActionResult<IEnumerable<BakingGood>>> GetListOfBakingGoods()
         {
-            return await _context.ListOfBakingGoods.ToListAsync();
+            return await _context.BakingGoods.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ListOfBakingGoods>> GetListOfBakingGoods(int id)
+        public async Task<ActionResult<BakingGood>> GetListOfBakingGoods(int id)
         {
-            var listOfBakingGoods = await _context.ListOfBakingGoods.FindAsync(id);
+            var listOfBakingGoods = await _context.BakingGoods.FindAsync(id);
 
             if (listOfBakingGoods == null)
             {
@@ -40,23 +40,23 @@ public class ListOfBakingGoodsController: ControllerBase
         }
 
         [HttpPost]
-        public async Task<ActionResult<ListOfBakingGoods>> PostListOfBakingGoods(ListOfBakingGoods listOfBakingGoods)
+        public async Task<ActionResult<BakingGood>> PostListOfBakingGoods(BakingGood bakingGood)
         {
-            _context.ListOfBakingGoods.Add(listOfBakingGoods);
+            _context.BakingGoods.Add(bakingGood);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetListOfBakingGoods", new { id = listOfBakingGoods.ListId }, listOfBakingGoods);
+            return CreatedAtAction("GetListOfBakingGoods", new { id = bakingGood.BakingGoodId }, bakingGood);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutListOfBakingGoods(int id, ListOfBakingGoods listOfBakingGoods)
+        public async Task<IActionResult> PutListOfBakingGoods(int id, BakingGood bakingGood)
         {
-            if (id != listOfBakingGoods.ListId)
+            if (id != bakingGood.BakingGoodId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(listOfBakingGoods).State = EntityState.Modified;
+            _context.Entry(bakingGood).State = EntityState.Modified;
 
             try
             {
@@ -80,13 +80,13 @@ public class ListOfBakingGoodsController: ControllerBase
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteListOfBakingGoods(int id)
         {
-            var listOfBakingGoods = await _context.ListOfBakingGoods.FindAsync(id);
+            var listOfBakingGoods = await _context.BakingGoods.FindAsync(id);
             if (listOfBakingGoods == null)
             {
                 return NotFound();
             }
 
-            _context.ListOfBakingGoods.Remove(listOfBakingGoods);
+            _context.BakingGoods.Remove(listOfBakingGoods);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -94,7 +94,7 @@ public class ListOfBakingGoodsController: ControllerBase
 
         private bool ListOfBakingGoodsExists(int id)
         {
-            return _context.ListOfBakingGoods.Any(e => e.ListId == id);
+            return _context.BakingGoods.Any(e => e.BakingGoodId == id);
         }
     
     

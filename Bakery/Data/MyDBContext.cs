@@ -37,6 +37,22 @@ namespace Bakery.Data
                 .HasForeignKey(f => f.BatchId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<BakingGoodOrder>()
+                .HasKey(i => new { i.OrderId, i.BakingGoodId });
+
+            modelBuilder.Entity<BakingGoodOrder>()
+                .HasOne(x => x.Order)
+                .WithMany(y => y.BakingGoodOrders)
+                .HasForeignKey(f => f.OrderId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<BakingGoodOrder>()
+                .HasOne(o => o.BakingGoods)
+                .WithMany(m => m.BakingGoodOrders)
+                .HasForeignKey(f => f.BakingGoodId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Package>()
                 .HasOne(o => o.Order)
@@ -45,24 +61,25 @@ namespace Bakery.Data
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
             
-            modelBuilder.Entity<ListOfBakingGoods>()
-                .HasOne(o => o.Order)
-                .WithOne(l => l.ListOfBakingGoods)
-                .HasForeignKey<ListOfBakingGoods>(f => f.OrdreId)
-                .HasPrincipalKey<Order>(p => p.OrderId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Cascade);
+            // modelBuilder.Entity<BakingGood>()
+            //     .HasMany(o => o.Order)
+            //     .WithMany(l => l.BakingGoods)
+            //     .HasForeignKey<BakingGood>(f => f.OrdreId)
+            //     .HasPrincipalKey<Order>(p => p.OrderId)
+            //     .IsRequired()
+            //     .OnDelete(DeleteBehavior.Cascade);
         }
 
         
         public DbSet<Batch> Batch => Set<Batch>();
         public DbSet<Ingredient> Ingredients => Set<Ingredient>();
-        public DbSet<ListOfBakingGoods> ListOfBakingGoods => Set<ListOfBakingGoods>();
+        public DbSet<BakingGood> BakingGoods => Set<BakingGood>();
        
         public DbSet<Order> Orders => Set<Order>();
         public DbSet<Package> Packages => Set<Package>();
         //public DbSet<Stock> Stocks => Set<Stock>();
         public DbSet<BatchIngredient> BatchIngredient => Set<BatchIngredient>();
+        public DbSet<BakingGoodOrder> BakingGoodOrders => Set<BakingGoodOrder>();
 
     }
 }
