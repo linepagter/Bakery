@@ -20,13 +20,11 @@ public class PackageController: ControllerBase
     }
     
     [HttpGet("Query5")]
-    public async Task<ActionResult<IEnumerable<Package>>> GetTrackId()
+    public async Task<ActionResult<IEnumerable<Package>>> GetTrackId(int orderId)
     {
 
-        int OrdreID = 11;
-
         var query = from p in _context.Packages
-            where OrdreID.Equals(p.OrderId)
+            where orderId.Equals(p.OrderId)
             select new
             {
                 TrackId = p.TrackId,
