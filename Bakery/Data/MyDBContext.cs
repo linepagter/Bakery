@@ -60,14 +60,6 @@ namespace Bakery.Data
                 .HasForeignKey(f => f.OrderId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
-            
-            // modelBuilder.Entity<BakingGood>()
-            //     .HasMany(o => o.Order)
-            //     .WithMany(l => l.BakingGoods)
-            //     .HasForeignKey<BakingGood>(f => f.OrdreId)
-            //     .HasPrincipalKey<Order>(p => p.OrderId)
-            //     .IsRequired()
-            //     .OnDelete(DeleteBehavior.Cascade);
         }
 
         
@@ -77,7 +69,6 @@ namespace Bakery.Data
        
         public DbSet<Order> Orders => Set<Order>();
         public DbSet<Package> Packages => Set<Package>();
-        //public DbSet<Stock> Stocks => Set<Stock>();
         public DbSet<BatchIngredient> BatchIngredient => Set<BatchIngredient>();
         public DbSet<BakingGoodOrder> BakingGoodOrders => Set<BakingGoodOrder>();
 

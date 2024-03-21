@@ -18,6 +18,9 @@ namespace Bakery.Models
         public int StockQuantity { get; set; }
         
         [Required]
+        public string Allergens { get; set; }
+        
+        [Required]
         public ICollection<BatchIngredient>? BatchIngredient { get; set; }
     }
 }
