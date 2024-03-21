@@ -76,6 +76,9 @@ namespace Bakery.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("StockQuantity")
+                        .HasColumnType("int");
+
                     b.HasKey("IngredientId");
 
                     b.ToTable("Ingredients");
@@ -145,27 +148,6 @@ namespace Bakery.Migrations
                     b.ToTable("Package");
                 });
 
-            modelBuilder.Entity("Bakery.Models.Stock", b =>
-                {
-                    b.Property<int>("StockId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockId"));
-
-                    b.Property<int>("IngredientId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("StockId");
-
-                    b.HasIndex("IngredientId");
-
-                    b.ToTable("Stock");
-                });
-
             modelBuilder.Entity("BatchOrder", b =>
                 {
                     b.Property<int>("BatchId")
@@ -222,17 +204,6 @@ namespace Bakery.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Bakery.Models.Stock", b =>
-                {
-                    b.HasOne("Bakery.Models.Ingredient", "Ingredient")
-                        .WithMany("Stock")
-                        .HasForeignKey("IngredientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ingredient");
-                });
-
             modelBuilder.Entity("BatchOrder", b =>
                 {
                     b.HasOne("Bakery.Models.Batch", null)
@@ -256,8 +227,6 @@ namespace Bakery.Migrations
             modelBuilder.Entity("Bakery.Models.Ingredient", b =>
                 {
                     b.Navigation("BatchIngredient");
-
-                    b.Navigation("Stock");
                 });
 
             modelBuilder.Entity("Bakery.Models.Order", b =>

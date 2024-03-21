@@ -45,24 +45,28 @@ namespace Bakery.Controller
 
             var ingredients = new Ingredient[]
             {
-                new Ingredient { IngredientName = "Leftover cake" },
-                new Ingredient { IngredientName = "Raspberry jam" },
-                new Ingredient { IngredientName = "Cocoa" },
-                new Ingredient { IngredientName = "Rum" },
-                new Ingredient { IngredientName = "coconut flakes" },
-                new Ingredient { IngredientName = "Sugar" },
-                new Ingredient { IngredientName = "Flour" },
-                new Ingredient { IngredientName = "Salt" }
+                new Ingredient
+                {
+                    IngredientName = "Leftover cake",
+                    
+                },
+                new Ingredient { IngredientName = "Raspberry jam" , StockQuantity = 10},
+                new Ingredient { IngredientName = "Cocoa", StockQuantity = 200},
+                new Ingredient { IngredientName = "Rum", StockQuantity = 123},
+                new Ingredient { IngredientName = "coconut flakes", StockQuantity = 400},
+                new Ingredient { IngredientName = "Sugar" , StockQuantity = 100000},
+                new Ingredient { IngredientName = "Flour" , StockQuantity = 242000},
+                new Ingredient { IngredientName = "Salt", StockQuantity =10000}
 
             };
 
            
-            var stock = new Stock[]
-            {
-                new Stock { Quantity = 100000, Ingredient = ingredients[5] },
-                new Stock { Quantity = 242000, Ingredient = ingredients[6] },
-                new Stock { Quantity = 10000, Ingredient = ingredients[7]  }
-            };
+            // var stock = new Stock[]
+            // {
+            //     new Stock { Quantity = 100000, Ingredient = ingredients[5] },
+            //     new Stock { Quantity = 242000, Ingredient = ingredients[6] },
+            //     new Stock { Quantity = 10000, Ingredient = ingredients[7]  }
+            // };
 
             var listOfBakingGoods = new ListOfBakingGoods[]
             {
@@ -144,16 +148,34 @@ namespace Bakery.Controller
                     Quantity = 0
                 }
             };
-
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    //_context.Stocks.AddRange(stock);  
+                    //await _context.SaveChangesAsync();
+                    _context.Ingredients.AddRange(ingredients);
+                    await _context.SaveChangesAsync();
+                    _context.Batch.AddRange(batch);
+                    await _context.SaveChangesAsync();
+                    _context.Orders.AddRange(order);
+                    await _context.SaveChangesAsync();
+                    _context.Packages.AddRange(package);
+                    await _context.SaveChangesAsync();
+                    _context.ListOfBakingGoods.AddRange(listOfBakingGoods); 
+                    await _context.SaveChangesAsync();
+                    _context.BatchIngredient.AddRange(batchIngredient);
+                    await _context.SaveChangesAsync();
+                    transaction.Commit();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    //transaction.Rollback();
+                    throw;
+                }
+            }
             
-                _context.Orders.AddRange(order);
-                _context.Packages.AddRange(package);
-                _context.ListOfBakingGoods.AddRange(listOfBakingGoods); 
-                _context.Batch.AddRange(batch);
-                _context.Stocks.AddRange(stock);
-                _context.Ingredients.AddRange(ingredients);
-                _context.BatchIngredient.AddRange(batchIngredient);
-                await _context.SaveChangesAsync();
             
             return new JsonResult(new
             {
@@ -162,7 +184,7 @@ namespace Bakery.Controller
                 batch = _context.Batch.Count(),
                 ingredients = _context.Ingredients.Count(),
                 batchIngredient = _context.BatchIngredient.Count(),
-                stock = _context.Stocks.Count(),
+                //stock = _context.Stocks.Count(),
                 listOfBakingGoods = _context.ListOfBakingGoods.Count()
                 
                 

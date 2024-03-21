@@ -15,7 +15,7 @@ namespace Bakery.Models
         public string IngredientName { get; set; } = null!;
         
         [Required]
-        public ICollection<Stock>? Stock { get; set; }
+        public int StockQuantity { get; set; }
         
         [Required]
         public ICollection<BatchIngredient>? BatchIngredient { get; set; }

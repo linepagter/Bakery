@@ -61,7 +61,7 @@ namespace Bakery.Data
        
         public DbSet<Order> Orders => Set<Order>();
         public DbSet<Package> Packages => Set<Package>();
-        public DbSet<Stock> Stocks => Set<Stock>();
+        //public DbSet<Stock> Stocks => Set<Stock>();
         public DbSet<BatchIngredient> BatchIngredient => Set<BatchIngredient>();
 
     }
