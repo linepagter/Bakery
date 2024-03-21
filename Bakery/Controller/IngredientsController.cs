@@ -1,4 +1,5 @@
 using Bakery.Data;
+using Bakery.DTO;
 using Bakery.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,81 +17,22 @@ public class IngredientsController: ControllerBase
         _context = context;
     }
     
-        [HttpGet]
+    [HttpGet("Query1")]
         public async Task<ActionResult<IEnumerable<Ingredient>>> GetIngredients()
         {
-            return await _context.Ingredients.ToListAsync();
-        }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Ingredient>> GetIngredient(int id)
-        {
-            var ingredient = await _context.Ingredients.FindAsync(id);
+            List<int> ingredientIds = new List<int> { 9,10,11 };
 
-            if (ingredient == null)
-            {
-                return NotFound();
-            }
-
-            return ingredient;
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<Ingredient>> PostIngredient(Ingredient ingredient)
-        {
-            _context.Ingredients.Add(ingredient);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetIngredient", new { id = ingredient.IngredientId }, ingredient);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutIngredient(int id, Ingredient ingredient)
-        {
-            if (id != ingredient.IngredientId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(ingredient).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!IngredientExists(id))
+            var query = from i in _context.Ingredients
+                where ingredientIds.Contains(i.IngredientId)
+                select new
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                    IngredientName = i.IngredientName,
+                    StockQuantity = i.StockQuantity
+                };
 
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteIngredient(int id)
-        {
-            var ingredient = await _context.Ingredients.FindAsync(id);
-            if (ingredient == null)
-            {
-                return NotFound();
-            }
-
-            _context.Ingredients.Remove(ingredient);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool IngredientExists(int id)
-        {
-            return _context.Ingredients.Any(e => e.IngredientId == id);
+            var result = query.ToList();
+            return Ok(result);
         }
     
 }

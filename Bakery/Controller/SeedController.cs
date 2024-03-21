@@ -49,11 +49,7 @@ namespace Bakery.Controller
 
             var ingredients = new Ingredient[]
             {
-                new Ingredient
-                {
-                    IngredientName = "Leftover cake",
-                    
-                },
+                new Ingredient { IngredientName = "Leftover cake", StockQuantity = 5000 },
                 new Ingredient { IngredientName = "Raspberry jam" , StockQuantity = 10},
                 new Ingredient { IngredientName = "Cocoa", StockQuantity = 200},
                 new Ingredient { IngredientName = "Rum", StockQuantity = 123},
