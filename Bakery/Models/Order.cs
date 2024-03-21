@@ -15,7 +15,10 @@ namespace Bakery.Models
         public string DeliveryPlace { get; set; }
 
         [Required]
-        public DateTime DeliveryDate {  get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true,DataFormatString = "{0:ddMMyyyy HHm}")]
+        public string DeliveryDate {  get; set; }
+        
+        public string GPSCoordinates { get; set; }
         
         public ICollection<Batch>? Batch { get; set; }
         public ICollection<Package>? Packages { get; set; }

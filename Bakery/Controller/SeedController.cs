@@ -35,9 +35,9 @@ namespace Bakery.Controller
                 new Order
                 {
                     DeliveryPlace = "Finlandsgade 17", 
-                    DeliveryDate = new DateTime(2024, 08, 12, 08, 00, 00)
+                    DeliveryDate = "12082024 0800" 
                 },
-                new Order { DeliveryPlace = "Katrinebjergvej 2", DeliveryDate = new DateTime(2024, 10, 11, 10, 00, 00) }
+                new Order { DeliveryPlace = "Katrinebjergvej 2", DeliveryDate = "11102024 1000"}
             };
 
             var package = new Package[]
