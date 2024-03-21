@@ -37,18 +37,19 @@ public class IngredientsController : ControllerBase
     [HttpGet("Query4")]
     public ActionResult<IEnumerable<Batch>> GetIngredientsForBatch(int batchId)
     {
-        var ingredients = _context.Batch
-            .Where(u => u.BatchId == batchId)  
-            .Join(_context.Ingredients,
-                u => u.IngredientId, i => i.IngredientId,
-                (u, i) => new Batch
-                {
-                    IngredientName = i.IngredientName,
-                    StockQuantity = u.Quantity
-                })
-            .ToList();
 
-        return Ok(ingredients);
+        var query = from i in _context.Ingredients
+            join bi in _context.BatchIngredient on i.IngredientId equals bi.IngredientsId
+            where batchId.Equals(bi.BatchId)
+            select new
+            {
+                IngredientName = i.IngredientName,
+                StockQuantity = i.StockQuantity,
+                Allergens = i.Allergens //Grundet D1
+            };
+
+        var result = query.ToList();
+        return Ok(result);
     }
 
 
