@@ -60,14 +60,6 @@ namespace Bakery.Controller
 
             };
 
-           
-            // var stock = new Stock[]
-            // {
-            //     new Stock { Quantity = 100000, Ingredient = ingredients[5] },
-            //     new Stock { Quantity = 242000, Ingredient = ingredients[6] },
-            //     new Stock { Quantity = 10000, Ingredient = ingredients[7]  }
-            // };
-
             var bakingGood = new BakingGood[]
             {
                 new BakingGood
@@ -107,7 +99,6 @@ namespace Bakery.Controller
                     StartTime = new DateTime(2024, 06, 03, 10, 30, 00),
                     FinishTime = new DateTime(2024, 06, 03, 14, 30, 00),
                     TargetFinishTime = new DateTime(2024, 06, 03, 14, 20, 00),
-                    //Order = new List<Order>(){ order[0], order[1]}
                 },
 
                 new Batch
@@ -164,8 +155,7 @@ namespace Bakery.Controller
             using (var transaction = _context.Database.BeginTransaction())
             {
                 try
-                {
-                    //_context.Stocks.AddRange(stock);  
+                { 
                     _context.Ingredients.AddRange(ingredients);
                     _context.Batch.AddRange(batch);
                     _context.Orders.AddRange(order);
@@ -179,7 +169,6 @@ namespace Bakery.Controller
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    //transaction.Rollback();
                     throw;
                 }
             }
@@ -192,7 +181,6 @@ namespace Bakery.Controller
                 batch = _context.Batch.Count(),
                 ingredients = _context.Ingredients.Count(),
                 batchIngredient = _context.BatchIngredient.Count(),
-                //stock = _context.Stocks.Count(),
                 BakingGoods = _context.BakingGoods.Count()
                 
                 
