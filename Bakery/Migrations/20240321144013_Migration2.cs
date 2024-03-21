@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Bakery.Migrations
 {
     /// <inheritdoc />
-    public partial class D2 : Migration
+    public partial class Migration2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

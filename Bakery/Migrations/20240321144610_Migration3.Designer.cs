@@ -13,7 +13,7 @@ namespace Bakery.Migrations
 {
     [DbContext(typeof(MyDbContext))]
     [Migration("20240321144610_D3")]
-    partial class D3
+    partial class Migration3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bakery.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20240321144013_D2")]
-    partial class D2
+    [Migration("20240321142902_D1")]
+    partial class Migration1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -134,9 +134,8 @@ namespace Bakery.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
 
-                    b.Property<string>("DeliveryDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("DeliveryDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DeliveryPlace")
                         .IsRequired()
