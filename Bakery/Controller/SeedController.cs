@@ -55,9 +55,9 @@ namespace Bakery.Controller
                 new Ingredient { IngredientName = "Cocoa", StockQuantity = 200, Allergens = "Koffein"},
                 new Ingredient { IngredientName = "Rum", StockQuantity = 123, Allergens = "Alkohol"},
                 new Ingredient { IngredientName = "coconut flakes", StockQuantity = 400, Allergens = "Nuts"},
-                new Ingredient { IngredientName = "Sugar" , StockQuantity = 100000},
+                new Ingredient { IngredientName = "Sugar" , StockQuantity = 100000, Allergens = "Nuts"},
                 new Ingredient { IngredientName = "Flour" , StockQuantity = 242000, Allergens = "Flour"},
-                new Ingredient { IngredientName = "Salt", StockQuantity =10000}
+                new Ingredient { IngredientName = "Salt", StockQuantity =10000, Allergens = "Lactose"}
 
             };
 
