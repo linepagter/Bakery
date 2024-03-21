@@ -32,14 +32,18 @@ namespace Bakery.Controller
         {
              var order = new Order[]
             {
-                new Order { DeliveryPlace = "Finlandsgade 17", DeliveryDate = new DateTime(2024, 08, 12, 08, 00, 00) },
+                new Order
+                {
+                    DeliveryPlace = "Finlandsgade 17", 
+                    DeliveryDate = new DateTime(2024, 08, 12, 08, 00, 00)
+                },
                 new Order { DeliveryPlace = "Katrinebjergvej 2", DeliveryDate = new DateTime(2024, 10, 11, 10, 00, 00) }
             };
 
             var package = new Package[]
             {
-                new Package { OrderId = order[0].OrderId },
-                new Package { OrderId = order[0].OrderId }
+                new Package { Order = order[0]},
+                new Package { Order = order[0] }
             };
             
 
@@ -71,21 +75,21 @@ namespace Bakery.Controller
             var listOfBakingGoods = new ListOfBakingGoods[]
             {
                 new ListOfBakingGoods
-                    { OrdreId = order[0].OrderId, Quantity = 300, Type = "Alexandertorte" },
+                    { Order = order[0], Quantity = 300, Type = "Alexandertorte" },
                 new ListOfBakingGoods
-                    { OrdreId = order[0].OrderId, Quantity = 100, Type = "Buttercookies" },
+                    { Order = order[0], Quantity = 100, Type = "Buttercookies" },
                 new ListOfBakingGoods
-                    { OrdreId = order[0].OrderId, Quantity = 100, Type = "Studenterbrød" },
+                    { Order = order[0], Quantity = 100, Type = "Studenterbrød" },
                 new ListOfBakingGoods
-                    { OrdreId = order[0].OrderId, Quantity = 200, Type = "Romkugler" },
+                    { Order = order[0], Quantity = 200, Type = "Romkugler" },
                 new ListOfBakingGoods
-                    { OrdreId = order[1].OrderId, Quantity = 2900, Type = "Alexandertorte" },
+                    { Order = order[1], Quantity = 2900, Type = "Alexandertorte" },
                 new ListOfBakingGoods
-                    { OrdreId = order[1].OrderId, Quantity = 1499, Type = "Buttercookies" },
+                    { Order = order[1], Quantity = 1499, Type = "Buttercookies" },
                 new ListOfBakingGoods
-                    { OrdreId = order[1].OrderId, Quantity = 800, Type = "Studenterbrød" },
+                    { Order = order[1], Quantity = 800, Type = "Studenterbrød" },
                 new ListOfBakingGoods
-                    { OrdreId = order[1].OrderId, Quantity = 1800, Type = "Romkugler" }
+                    { Order = order[1], Quantity = 1800, Type = "Romkugler" }
             };
 
             var batch = new Batch[]
@@ -94,7 +98,8 @@ namespace Bakery.Controller
                 {
                     StartTime = new DateTime(2024, 06, 03, 10, 30, 00),
                     FinishTime = new DateTime(2024, 06, 03, 14, 30, 00),
-                    TargetFinishTime = new DateTime(2024, 06, 03, 14, 20, 00)
+                    TargetFinishTime = new DateTime(2024, 06, 03, 14, 20, 00),
+                    //Order = new List<Order>(){ order[0], order[1]}
                 },
 
                 new Batch
@@ -118,33 +123,33 @@ namespace Bakery.Controller
             {
                 new BatchIngredient
                 {
-                     BatchId = batch[0].BatchId,
-                     IngredientsId = ingredients[0].IngredientId,
+                     Batch = batch[0],
+                     Ingredients = ingredients[0],
                      Quantity = 50000
                 },
                
                 new BatchIngredient
                 {
-                    BatchId = batch[0].BatchId,
-                    IngredientsId = ingredients[1].IngredientId,
+                    Batch = batch[0],
+                    Ingredients = ingredients[1],
                     Quantity = 30
                 },
                 new BatchIngredient
                 {
-                    BatchId = batch[0].BatchId,
-                    IngredientsId = ingredients[2].IngredientId,
+                    Batch = batch[0],
+                    Ingredients = ingredients[2],
                     Quantity = 20
                 },
                 new BatchIngredient
                 {
-                    BatchId = batch[0].BatchId,
-                    IngredientsId = ingredients[3].IngredientId,
+                    Batch = batch[0],
+                    Ingredients = ingredients[3],
                     Quantity = 30
                 },
                 new BatchIngredient
                 {
-                    BatchId = batch[0].BatchId,
-                    IngredientsId = ingredients[4].IngredientId,
+                    Batch = batch[0],
+                    Ingredients = ingredients[4],
                     Quantity = 0
                 }
             };
