@@ -23,10 +23,10 @@ public class PackageController: ControllerBase
     public async Task<ActionResult<IEnumerable<Package>>> GetTrackId()
     {
 
-        List<int> TrackId = new List<int> { 7,8 };
+        int OrdreID = 11;
 
         var query = from p in _context.Packages
-            where TrackId.Contains(p.TrackId)
+            where OrdreID.Equals(p.OrderId)
             select new
             {
                 TrackId = p.TrackId,
