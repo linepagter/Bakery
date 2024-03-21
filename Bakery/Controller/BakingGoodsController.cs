@@ -11,11 +11,11 @@ namespace Bakery.Controller;
 
 [Route("[controller]")]
 [ApiController]
-public class ListOfBakingGoodsController: ControllerBase
+public class BakingGoodsController: ControllerBase
 {
     private readonly MyDbContext _context;
 
-    public ListOfBakingGoodsController(MyDbContext context)
+    public BakingGoodsController(MyDbContext context)
     {
         _context = context;
     }
