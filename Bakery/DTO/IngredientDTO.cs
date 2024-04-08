@@ -8,4 +8,5 @@ public class IngredientDTO
     public string? name { get; set; } 
     
     public int StockQuantity { get; set; }
+    public string Allergens { get; set; }
 }

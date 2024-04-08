@@ -71,7 +71,8 @@ public class IngredientsController : ControllerBase
         var newIngredient = new Ingredient
         {
             IngredientName = ingredientDTO.name,
-            StockQuantity = ingredientDTO.StockQuantity
+            StockQuantity = ingredientDTO.StockQuantity,
+            Allergens = ingredientDTO.Allergens
         };
 
         _context.Ingredients.Add(newIngredient);
