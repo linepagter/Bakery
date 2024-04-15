@@ -1,5 +1,6 @@
 using Bakery.Data;
 using Bakery.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,7 @@ public class OrderController: ControllerBase
         _context = context;
     }
     
+    [Authorize(Roles = "Admin, Driver, Manager")]
     [HttpGet("Query2")]
     public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
     {

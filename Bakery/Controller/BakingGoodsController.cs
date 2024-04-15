@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Bakery.Data;
 using Bakery.DTO;
 using Bakery.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ public class BakingGoodsController: ControllerBase
         _context = context;
     }
     
+    [Authorize(Roles = "Admin, Driver, Manager")]
     [HttpGet("Query3")]
     public async Task<ActionResult<IEnumerable<BakingGood>>> GetBakedGoods(int orderId)
     {
@@ -35,6 +37,7 @@ public class BakingGoodsController: ControllerBase
         return Ok(result);
     }
     
+    [Authorize(Roles = "Admin, Manager")]
     [HttpGet("Query6")]
     public async Task<ActionResult<IEnumerable<BakingGood>>> GetAll()
     {

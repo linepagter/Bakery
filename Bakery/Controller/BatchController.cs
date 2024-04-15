@@ -3,6 +3,7 @@ using Bakery.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Bakery.Controller;
 
@@ -17,6 +18,7 @@ public class BatchController: ControllerBase
         _context = context;
     }
     
+    [Authorize(Roles = "Baker, Admin, Manager")]
     [HttpGet("Query7")]
     public ActionResult<double> GetDelay()
     {

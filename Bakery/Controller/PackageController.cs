@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Bakery.Data;
 using Bakery.DTO;
 using Bakery.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ public class PackageController: ControllerBase
         _context = context;
     }
     
+    [Authorize(Roles = "Admin, Driver, Manager")]
     [HttpGet("Query5")]
     public async Task<ActionResult<IEnumerable<Package>>> GetTrackId(int orderId)
     {

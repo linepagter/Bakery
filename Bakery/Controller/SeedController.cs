@@ -3,9 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using CsvHelper.Configuration;
 using CsvHelper;
 using System.Globalization;
+using System.Security.Claims;
 using Bakery.Data;
+using Bakery.Migrations;
 using Microsoft.EntityFrameworkCore;
 using Bakery.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace Bakery.Controller
@@ -24,10 +28,10 @@ namespace Bakery.Controller
             _context = context;
             _environment = environment;
         }
-
+        
+        [Authorize]
         [HttpPut(Name = "Seed")]
         [ResponseCache(NoStore = true)]
-
         public async Task<IActionResult> Put()
         {
              var order = new Order[]
