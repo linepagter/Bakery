@@ -20,7 +20,7 @@ public class BatchController: ControllerBase
     [HttpGet("Query7")]
     public ActionResult<double> GetDelay()
     {
-        List<int> batchIds = new List<int> { 1,2,3 };
+        List<int> batchIds = new List<int> { 4, 5, 6 };
 
         var query = from b in _context.Batch
             where batchIds.Contains(b.BatchId)

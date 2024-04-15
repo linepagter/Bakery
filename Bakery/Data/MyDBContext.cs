@@ -5,11 +5,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Bakery.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bakery.Data
 {
-    public class MyDbContext : DbContext
+    public class MyDbContext : IdentityDbContext<BakeryUser>
     {
         public MyDbContext(DbContextOptions<MyDbContext> options)
             : base(options)
@@ -19,9 +20,7 @@ namespace Bakery.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
             
-
             modelBuilder.Entity<BatchIngredient>()
                 .HasKey(i => new { i.IngredientsId, i.BatchId });
 
