@@ -10,6 +10,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace Bakery
+
+//(brug using, create.scope)
 {
     public class Program
     {
