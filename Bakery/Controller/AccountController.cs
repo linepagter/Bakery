@@ -16,20 +16,21 @@ namespace Bakery.Controller;
     public class AccountController : ControllerBase
     {
         private readonly MyDbContext _context;
-        //private readonly ILogger<DomainsController> _logger;
         private readonly IConfiguration _configuration;
         private readonly UserManager<BakeryUser> _userManager;
+
+        private readonly ILogger<AccountController> _logger;
         //private readonly SignInManager<BakeryUser> _signInManager;
         public AccountController(
             MyDbContext context,
-            //ILogger<DomainsController> logger,
             IConfiguration configuration,
-            UserManager<BakeryUser> userManager//,
+            UserManager<BakeryUser> userManager,
+            ILogger<AccountController> logger//,
             //SignInManager<BakeryUser> signInManager
             )
         {
             _context = context;
-            //_logger = logger;
+            _logger = logger;
             _configuration = configuration;
             _userManager = userManager;
             //_signInManager = signInManager;
@@ -39,6 +40,11 @@ namespace Bakery.Controller;
         [HttpPost("SeedUsers")]
         public async Task<ActionResult> SeedUsers()
         {
+            var timestamp = new DateTimeOffset(DateTime.UtcNow);
+            var loginfo = new { Operation = "Post users", Timestamp = timestamp };
+        
+            _logger.LogInformation("Post called {@loginfo} ", loginfo);
+            
             var admin = new BakeryUser()
             {
                 UserName = "Admin",
@@ -192,6 +198,11 @@ namespace Bakery.Controller;
         [HttpPost]
         public async Task<ActionResult> Login(LoginDTO input)
         {
+            var timestamp = new DateTimeOffset(DateTime.UtcNow);
+            var loginfo = new { Operation = "Post Login", Timestamp = timestamp };
+        
+            _logger.LogInformation("Post called {@loginfo} ", loginfo);
+            
             try
             {
                 if (ModelState.IsValid)
