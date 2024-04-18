@@ -20,13 +20,16 @@ namespace Bakery.Controller
     {
          private readonly MyDbContext _context;
          private IWebHostEnvironment _environment;
+         private readonly ILogger<SeedController> _logger;
         
         public SeedController(
             MyDbContext context,
-            IWebHostEnvironment environment )
+            IWebHostEnvironment environment,
+            ILogger<SeedController>logger)
         {
             _context = context;
             _environment = environment;
+            _logger = logger;
         }
         
         [Authorize]
@@ -34,6 +37,11 @@ namespace Bakery.Controller
         [ResponseCache(NoStore = true)]
         public async Task<IActionResult> Put()
         {
+            var timestamp = new DateTimeOffset(DateTime.UtcNow);
+            var loginfo = new { Operation = "Put Ingredients", Timestamp = timestamp };
+        
+            _logger.LogInformation("Put called {@loginfo} ", loginfo);
+            
              var order = new Order[]
             {
                 new Order

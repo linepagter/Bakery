@@ -15,11 +15,10 @@ namespace Bakery.Controller;
 public class BakingGoodsController: ControllerBase
 {
     private readonly MyDbContext _context;
-    private readonly ILogger<BakingGoodsController> _logger;
+    
 
-    public BakingGoodsController(MyDbContext context, ILogger<BakingGoodsController> logger)
+    public BakingGoodsController(MyDbContext context)
     {
-        _logger = logger;
         _context = context;
     }
     
@@ -27,10 +26,6 @@ public class BakingGoodsController: ControllerBase
     [HttpGet("Query3")]
     public async Task<ActionResult<IEnumerable<BakingGood>>> GetBakedGoods(int orderId)
     {
-        var timestamp = new DateTimeOffset(DateTime.UtcNow);
-        var loginfo = new { Operation = "Get", Timestamp = timestamp };
-        
-        _logger.LogInformation("Get baked goods called {@loginfo} ", loginfo);
         var query = from bg in _context.BakingGoods
             join bgo in _context.BakingGoodOrders on bg.BakingGoodId equals bgo.BakingGoodId
             where bgo.OrderId == orderId
@@ -48,11 +43,6 @@ public class BakingGoodsController: ControllerBase
     [HttpGet("Query6")]
     public async Task<ActionResult<IEnumerable<BakingGood>>> GetAll()
     {
-        var timestamp = new DateTimeOffset(DateTime.UtcNow);
-        var loginfo = new { Operation = "Get all baked goods", Timestamp = timestamp };
-        
-        _logger.LogInformation("Get called {@loginfo} ", loginfo);
-        
         var query = from bg in _context.BakingGoods
             group bg by bg.BakingGoodName into g
             orderby g.Key ascending

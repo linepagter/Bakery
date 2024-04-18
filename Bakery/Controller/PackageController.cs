@@ -13,8 +13,8 @@ namespace Bakery.Controller;
 [ApiController]
 public class PackageController: ControllerBase
 {
-    private readonly MyDbContext _context;
-
+    private readonly MyDbContext _context; 
+    
     public PackageController(MyDbContext context)
     {
         _context = context;
@@ -24,7 +24,7 @@ public class PackageController: ControllerBase
     [HttpGet("Query5")]
     public async Task<ActionResult<IEnumerable<Package>>> GetTrackId(int orderId)
     {
-
+        
         var query = from p in _context.Packages
             join o in _context.Orders on p.OrderId equals o.OrderId //Joiner grundet D3
             where orderId.Equals(p.OrderId)

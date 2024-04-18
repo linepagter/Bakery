@@ -12,10 +12,13 @@ namespace Bakery.Controller;
 public class BatchController: ControllerBase
 {
     private readonly MyDbContext _context;
+    private readonly ILogger<BatchController> _logger;
 
-    public BatchController(MyDbContext context)
+
+    public BatchController(MyDbContext context, ILogger<BatchController>logger)
     {
         _context = context;
+        _logger = logger;
     }
     
     [Authorize(Roles = $"{UserRoles.Baker}, {UserRoles.Administrator}, {UserRoles.Manager}")]

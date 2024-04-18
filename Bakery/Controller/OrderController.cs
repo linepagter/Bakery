@@ -11,10 +11,12 @@ namespace Bakery.Controller;
 public class OrderController: ControllerBase
 {
     private readonly MyDbContext _context;
+    private readonly ILogger<OrderController> _logger;
 
-    public OrderController(MyDbContext context)
+    public OrderController(MyDbContext context, ILogger<OrderController> logger)
     {
         _context = context;
+        _logger = logger;
     }
     
     [Authorize(Roles = $"{UserRoles.Administrator}, {UserRoles.Driver}, {UserRoles.Manager}")]
@@ -23,7 +25,8 @@ public class OrderController: ControllerBase
     {
 
         int orderId =  3 ;
-
+        
+        
         var query = from o in _context.Orders
             where orderId.Equals(o.OrderId)
             select new
