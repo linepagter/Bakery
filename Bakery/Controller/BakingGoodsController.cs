@@ -23,7 +23,7 @@ public class BakingGoodsController: ControllerBase
         _context = context;
     }
     
-    [Authorize(Roles = "Admin, Driver, Manager")]
+    [Authorize(Roles = $"{UserRoles.Administrator}, {UserRoles.Driver}, {UserRoles.Manager}")]
     [HttpGet("Query3")]
     public async Task<ActionResult<IEnumerable<BakingGood>>> GetBakedGoods(int orderId)
     {
@@ -44,7 +44,7 @@ public class BakingGoodsController: ControllerBase
         return Ok(result);
     }
     
-    [Authorize(Roles = "Admin, Manager")]
+    [Authorize(Roles = $"{UserRoles.Administrator}, {UserRoles.Manager}")]
     [HttpGet("Query6")]
     public async Task<ActionResult<IEnumerable<BakingGood>>> GetAll()
     {

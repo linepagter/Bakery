@@ -17,7 +17,7 @@ public class OrderController: ControllerBase
         _context = context;
     }
     
-    [Authorize(Roles = "Admin, Driver, Manager")]
+    [Authorize(Roles = $"{UserRoles.Administrator}, {UserRoles.Driver}, {UserRoles.Manager}")]
     [HttpGet("Query2")]
     public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
     {

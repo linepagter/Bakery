@@ -20,7 +20,7 @@ public class PackageController: ControllerBase
         _context = context;
     }
     
-    [Authorize(Roles = "Admin, Driver, Manager")]
+    [Authorize(Roles = $"{UserRoles.Administrator}, {UserRoles.Driver}, {UserRoles.Manager}")]
     [HttpGet("Query5")]
     public async Task<ActionResult<IEnumerable<Package>>> GetTrackId(int orderId)
     {

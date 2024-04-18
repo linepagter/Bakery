@@ -17,7 +17,7 @@ public class IngredientsController : ControllerBase
         _context = context;
     }
 
-    [Authorize(Roles = "Baker, Admin, Manager")]
+    [Authorize(Roles = $"{UserRoles.Baker}, {UserRoles.Administrator}, {UserRoles.Manager}")]
     [HttpGet("Query1")]
     public async Task<ActionResult<IEnumerable<Ingredient>>> GetIngredients()
     {
@@ -36,7 +36,7 @@ public class IngredientsController : ControllerBase
         return Ok(result);
     }
 
-    [Authorize(Roles = "Baker, Admin, Manager")]
+    [Authorize(Roles = $"{UserRoles.Baker},{UserRoles.Administrator}, {UserRoles.Manager}")]
     [HttpGet("Query4")]
     public ActionResult<IEnumerable<Batch>> GetIngredientsForBatch(int batchId)
     {
@@ -61,7 +61,7 @@ public class IngredientsController : ControllerBase
 
 
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = $"{UserRoles.Administrator}")]
     [HttpPost("C1")]
     public async Task<ActionResult<IEnumerable<Ingredient>>> AddIngredientAndQuantity(IngredientDTO ingredientDTO)
     {
@@ -84,7 +84,7 @@ public class IngredientsController : ControllerBase
         return Ok(newIngredient);
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = $"{UserRoles.Administrator}")]
     [HttpPut("C2")]
     public async Task<ActionResult<IEnumerable<Ingredient>>> UpdateIngredientStock(int id, IngredientDTO ingredientDTO)
     {
@@ -108,7 +108,7 @@ public class IngredientsController : ControllerBase
         return NoContent();
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = $"{UserRoles.Administrator}")]
     [HttpDelete("C3")]
     public async Task<ActionResult<IEnumerable<Ingredient>>> DeleteIngredient(int id)
     {

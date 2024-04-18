@@ -18,7 +18,7 @@ public class BatchController: ControllerBase
         _context = context;
     }
     
-    [Authorize(Roles = "Baker, Admin, Manager")]
+    [Authorize(Roles = $"{UserRoles.Baker}, {UserRoles.Administrator}, {UserRoles.Manager}")]
     [HttpGet("Query7")]
     public ActionResult<double> GetDelay()
     {

@@ -19,214 +19,147 @@ namespace Bakery.Controller;
         //private readonly ILogger<DomainsController> _logger;
         private readonly IConfiguration _configuration;
         private readonly UserManager<BakeryUser> _userManager;
-        private readonly SignInManager<BakeryUser> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        //private readonly SignInManager<BakeryUser> _signInManager;
         public AccountController(
             MyDbContext context,
             //ILogger<DomainsController> logger,
             IConfiguration configuration,
-            UserManager<BakeryUser> userManager,
-            SignInManager<BakeryUser> signInManager,
-            RoleManager<IdentityRole> roleManager)
+            UserManager<BakeryUser> userManager//,
+            //SignInManager<BakeryUser> signInManager
+            )
         {
             _context = context;
             //_logger = logger;
             _configuration = configuration;
             _userManager = userManager;
-            _signInManager = signInManager;
-            _roleManager = roleManager;
-        }
-
-        
-        [HttpPost("createAdmin")]
-        public async Task<ActionResult> createAdmin([FromBody] RegisterDTO model)
-        {
-            var user = new BakeryUser
-            {
-                UserName = model.FullName,
-                Email = model.Email
-            };
-
-            var result = _userManager.CreateAsync(user, model.Password).Result;
-
-            if (result.Succeeded)
-            {
-                if (!await _roleManager.RoleExistsAsync("Admin"))
-                {
-                    var roleResult = await _roleManager.CreateAsync(new IdentityRole("Admin"));
-                    if (!roleResult.Succeeded)
-                    {
-                        return BadRequest("Failed to create admin role");
-                    }
-                }
-
-                await _userManager.AddToRoleAsync(user, "Admin");
-                
-                // var timestamp = new DateTimeOffset(DateTime.UtcNow);
-                // var loginfo = new Loginfo
-                // {
-                //     specificUser = User.Identity?.Name,
-                //     Operation = "Post CreateAdmin",
-                //     Timestamp = timestamp.DateTime
-                // };
-                // _logger.LogInformation("Get called {@LogInfo} ", loginfo);
-                
-                return Ok("Admin user created successfully.");
-            }
-            return BadRequest("Failed to create admin user.");
-        }
-        
-        [HttpPost("createManager")]
-        public async Task<ActionResult> createManager([FromBody] RegisterDTO model)
-        {
-            var user = new BakeryUser
-            {
-                UserName = model.FullName,
-                Email = model.Email
-            };
-
-            var result = _userManager.CreateAsync(user, model.Password).Result;
-
-            if (result.Succeeded)
-            {
-                if (!await _roleManager.RoleExistsAsync("Manager"))
-                {
-                    var roleResult = await _roleManager.CreateAsync(new IdentityRole("Manager"));
-                    if (!roleResult.Succeeded)
-                    {
-                        return BadRequest("Failed to create Manager role");
-                    }
-                }
-
-                await _userManager.AddToRoleAsync(user, "Manager");
-                
-                // var timestamp = new DateTimeOffset(DateTime.UtcNow);
-                // var loginfo = new Loginfo
-                // {
-                //     specificUser = User.Identity?.Name,
-                //     Operation = "Post CreateAdmin",
-                //     Timestamp = timestamp.DateTime
-                // };
-                // _logger.LogInformation("Get called {@LogInfo} ", loginfo);
-                
-                return Ok("Manager user created successfully.");
-            }
-            return BadRequest("Failed to create Manager user.");
-        }
-        
-        [HttpPost("createBaker")]
-        public async Task<ActionResult> createBaker([FromBody] RegisterDTO model)
-        {
-            var user = new BakeryUser
-            {
-                UserName = model.FullName,
-                Email = model.Email
-            };
-
-            var result = _userManager.CreateAsync(user, model.Password).Result;
-
-            if (result.Succeeded)
-            {
-                if (!await _roleManager.RoleExistsAsync("Baker"))
-                {
-                    var roleResult = await _roleManager.CreateAsync(new IdentityRole("Baker"));
-                    if (!roleResult.Succeeded)
-                    {
-                        return BadRequest("Failed to create Baker role");
-                    }
-                }
-
-                await _userManager.AddToRoleAsync(user, "Baker");
-                
-                // var timestamp = new DateTimeOffset(DateTime.UtcNow);
-                // var loginfo = new Loginfo
-                // {
-                //     specificUser = User.Identity?.Name,
-                //     Operation = "Post CreateAdmin",
-                //     Timestamp = timestamp.DateTime
-                // };
-                // _logger.LogInformation("Get called {@LogInfo} ", loginfo);
-                
-                return Ok("Baker user created successfully.");
-            }
-            return BadRequest("Failed to create Baker user.");
-        }
-        
-        [HttpPost("createDriver")]
-        public async Task<ActionResult> createDriver([FromBody] RegisterDTO model)
-        {
-            var user = new BakeryUser
-            {
-                UserName = model.FullName,
-                Email = model.Email
-            };
-
-            var result = _userManager.CreateAsync(user, model.Password).Result;
-
-            if (result.Succeeded)
-            {
-                if (!await _roleManager.RoleExistsAsync("Driver"))
-                {
-                    var roleResult = await _roleManager.CreateAsync(new IdentityRole("Driver"));
-                    if (!roleResult.Succeeded)
-                    {
-                        return BadRequest("Failed to create Driver role");
-                    }
-                }
-
-                await _userManager.AddToRoleAsync(user, "Driver");
-                
-                // var timestamp = new DateTimeOffset(DateTime.UtcNow);
-                // var loginfo = new Loginfo
-                // {
-                //     specificUser = User.Identity?.Name,
-                //     Operation = "Post CreateAdmin",
-                //     Timestamp = timestamp.DateTime
-                // };
-                // _logger.LogInformation("Get called {@LogInfo} ", loginfo);
-                
-                return Ok("Driver user created successfully.");
-            }
-            return BadRequest("Failed to create Driver user.");
+            //_signInManager = signInManager;
         }
 
         [Authorize]
         [HttpPost("SeedUsers")]
         public async Task<ActionResult> SeedUsers()
         {
-            var admin = new RegisterDTO()
+            var admin = new BakeryUser()
             {
                 FullName = "Admin",
-                Email = "Admin@hotmail.com",
-                Password = "AdminPassword123!"
+                Email = "Admin1@hotmail.com"
             };
-            var manager = new RegisterDTO()
+                
+            var userAdmin = await _userManager.FindByEmailAsync("Admin@hotmail.com");
+            if (userAdmin == null)
+            {
+                _userManager.CreateAsync(admin, "AdminPassword123!");
+                _userManager.AddToRoleAsync(userAdmin, UserRoles.Administrator).Wait();
+            }
+            
+         
+            var manager = new BakeryUser()
             {
                 FullName = "Manager",
-                Email = "Manager@hotmail.com",
-                Password = "ManagerPassword123!"
+                Email = "manager@hotmail.com"
             };
-            var driver = new RegisterDTO()
+                
+            var userManager = _userManager.FindByEmailAsync("manager@hotmail.com").Result;
+            // if (userAdmin == null)
+            // {
+            //     _userManager.CreateAsync(manager, "ManagerPassword123!");
+            //     _userManager.AddToRoleAsync(userManager, UserRoles.Manager).Wait();
+            // }
+            
+            if (userManager == null)
+            {
+                var result = _userManager.CreateAsync(manager, "ManagerPassword123!").Result;
+                if (result.Succeeded)
+                {
+                    userManager = _userManager.FindByEmailAsync("manager@hotmail.com").Result;
+
+                    if (userManager != null)
+                    {
+                        _userManager.AddToRoleAsync(userManager, UserRoles.Manager).Wait();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Failed to create manager user.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Failed to create manager user.");
+                }
+            }
+            
+            var driver = new BakeryUser()
             {
                 FullName = "Driver",
-                Email = "Driver@hotmail.com",
-                Password = "DriverPassword123!"
+                Email = "driver@hotmail.com"
             };
-            var baker = new RegisterDTO()
+                
+            var userDriver = _userManager.FindByEmailAsync("driver@hotmail.com").Result;
+            // if (userAdmin == null)
+            // {
+            //     _userManager.CreateAsync(driver, "DriverPassword123!");
+            //     _userManager.AddToRoleAsync(userDriver, UserRoles.Driver).Wait();
+            // }
+            
+            if (userDriver == null)
+            {
+                var result = _userManager.CreateAsync(driver, "DriverPassword123!").Result;
+                if (result.Succeeded)
+                {
+                    userDriver = _userManager.FindByEmailAsync("driver@hotmail.com").Result;
+
+                    if (userDriver != null)
+                    {
+                        _userManager.AddToRoleAsync(userDriver, UserRoles.Driver).Wait();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Failed to create driver user.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Failed to create driver user.");
+                }
+            }
+            
+            var baker = new BakeryUser()
             {
                 FullName = "Baker",
-                Email = "Baker@hotmail.com",
-                Password = "BakerPassword123!"
+                Email = "baker@hotmail.com"
             };
-            if (await createAdmin(admin) != BadRequest("Failed to create admin user") &&
-                await createManager(manager) != BadRequest("Failed to create manager user") &&
-                await createBaker(baker) != BadRequest("Failed to create baker user") &&
-                await createDriver(driver) != BadRequest("Failed to create driver user"))
+                
+            var userBaker = _userManager.FindByEmailAsync("baker@hotmail.com").Result;
+            // if (userAdmin == null)
+            // {
+            //     _userManager.CreateAsync(baker, "BakerPassword123!");
+            //     _userManager.AddToRoleAsync(userBaker, UserRoles.Baker).Wait();
+            // }
+            
+            if (userBaker == null)
             {
-                return Ok(("Users created succesfully"));
-            }
+                var result = _userManager.CreateAsync(baker, "BakerPassword123!").Result;
+                if (result.Succeeded)
+                {
+                    userBaker = _userManager.FindByEmailAsync("Baker@hotmail.com").Result;
 
-            return BadRequest("Failed to create user");
+                    if (userBaker != null)
+                    {
+                        _userManager.AddToRoleAsync(userBaker, UserRoles.Baker).Wait();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Failed to create baker user.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Failed to create baker user.");
+                }
+            }
+            
+            return Ok("Users created successfully.");
+            //return BadRequest("Failed to create user");
         }
 
         [AllowAnonymous]
