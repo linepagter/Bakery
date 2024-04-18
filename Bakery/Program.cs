@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 namespace Bakery
 {
@@ -16,6 +17,16 @@ namespace Bakery
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            
+            //Brug Serilogger
+            builder.Host.UseSerilog((ctx, lc) =>
+            {
+                // var mongoDbConnectionString = ctx.Configuration.GetConnectionString("MongoDB");
+                // System.Threading.Thread.Sleep(5000);
+
+                lc.ReadFrom.Configuration(ctx.Configuration);
+                // .WriteTo.MongoDB(mongoDbConnectionString, collectionName: "logs");
+            });
             
             // Add services to the container.
             builder.Services.AddControllers();
