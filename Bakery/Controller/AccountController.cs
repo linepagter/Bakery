@@ -41,20 +41,44 @@ namespace Bakery.Controller;
         {
             var admin = new BakeryUser()
             {
+                UserName = "Admin",
                 FullName = "Admin",
-                Email = "Admin1@hotmail.com"
+                Email = "admin@hotmail.com"
             };
                 
-            var userAdmin = await _userManager.FindByEmailAsync("Admin@hotmail.com");
+            var userAdmin = await _userManager.FindByEmailAsync("admin@hotmail.com");
+            // if (userAdmin == null)
+            // {
+            //     _userManager.CreateAsync(admin, "AdminPassword123!");
+            //     _userManager.AddToRoleAsync(userAdmin, UserRoles.Administrator).Wait();
+            // }
+            
             if (userAdmin == null)
             {
-                _userManager.CreateAsync(admin, "AdminPassword123!");
-                _userManager.AddToRoleAsync(userAdmin, UserRoles.Administrator).Wait();
+                var result = _userManager.CreateAsync(admin, "AdminPassword123!").Result;
+                if (result.Succeeded)
+                {
+                    userAdmin = _userManager.FindByEmailAsync("admin@hotmail.com").Result;
+
+                    if (userAdmin != null)
+                    {
+                        _userManager.AddToRoleAsync(userAdmin, UserRoles.Administrator).Wait();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Failed to create admin user.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Failed to create admin user.");
+                }
             }
             
          
             var manager = new BakeryUser()
             {
+                UserName = "Manager",
                 FullName = "Manager",
                 Email = "manager@hotmail.com"
             };
@@ -90,6 +114,7 @@ namespace Bakery.Controller;
             
             var driver = new BakeryUser()
             {
+                UserName = "Driver",
                 FullName = "Driver",
                 Email = "driver@hotmail.com"
             };
@@ -125,6 +150,7 @@ namespace Bakery.Controller;
             
             var baker = new BakeryUser()
             {
+                UserName = "Baker",
                 FullName = "Baker",
                 Email = "baker@hotmail.com"
             };

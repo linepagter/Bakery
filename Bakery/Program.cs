@@ -96,6 +96,53 @@ namespace Bakery
             app.MapControllers();
             app.UseAuthentication();
             app.UseAuthorization();
+            
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                var userManager = services.GetRequiredService<UserManager<BakeryUser>>();
+                
+                
+                foreach (var user in UserRoles.users)
+                {
+                    if (!roleManager.RoleExistsAsync(user).Result)
+                    {
+                        var newrole = new IdentityRole(user);
+                        roleManager.CreateAsync(newrole).Wait();
+                    }
+                }
+                
+                var testAdmin = new BakeryUser()
+                {
+                    UserName = "AdminTest",
+                    FullName = "AdminTest",
+                    Email = "AdminTest@hotmail.com"
+                };
+                
+                var userAdmin = userManager.FindByEmailAsync("AdminTest@hotmail.com").Result;
+                if (userAdmin == null)
+                {
+                    var result = userManager.CreateAsync(testAdmin, "AdminPassword123!").Result;
+                    if (result.Succeeded)
+                    {
+                        userAdmin = userManager.FindByEmailAsync("AdminTest@hotmail.com").Result;
+
+                        if (userAdmin != null)
+                        {
+                            userManager.AddToRoleAsync(userAdmin, UserRoles.Administrator).Wait();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Failed to create admin user.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Failed to create admin user.");
+                    }
+                }
+            }
             app.Run();
         }
     }
