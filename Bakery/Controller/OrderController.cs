@@ -24,7 +24,7 @@ public class OrderController: ControllerBase
     public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
     {
 
-        int orderId =  3 ;
+        int orderId =  2 ;
         
         
         var query = from o in _context.Orders

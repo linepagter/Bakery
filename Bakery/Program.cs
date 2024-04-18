@@ -27,6 +27,17 @@ namespace Bakery
             // Add services to the container.
             builder.Services.AddControllers();
             
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin();
+                        builder.AllowAnyMethod();
+                        builder.AllowAnyHeader();
+                    });
+            });
+            
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             
@@ -101,6 +112,7 @@ namespace Bakery
             app.UseSwaggerUI();
             app.UseHttpsRedirection();
             app.MapControllers();
+            app.UseCors("AllowAllOrigins");
             app.UseAuthentication();
             app.UseAuthorization();
             
