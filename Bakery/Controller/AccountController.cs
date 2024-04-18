@@ -47,11 +47,6 @@ namespace Bakery.Controller;
             };
                 
             var userAdmin = await _userManager.FindByEmailAsync("admin@hotmail.com");
-            // if (userAdmin == null)
-            // {
-            //     _userManager.CreateAsync(admin, "AdminPassword123!");
-            //     _userManager.AddToRoleAsync(userAdmin, UserRoles.Administrator).Wait();
-            // }
             
             if (userAdmin == null)
             {
