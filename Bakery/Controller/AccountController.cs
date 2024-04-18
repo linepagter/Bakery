@@ -79,11 +79,6 @@ namespace Bakery.Controller;
             };
                 
             var userManager = _userManager.FindByEmailAsync("manager@hotmail.com").Result;
-            // if (userAdmin == null)
-            // {
-            //     _userManager.CreateAsync(manager, "ManagerPassword123!");
-            //     _userManager.AddToRoleAsync(userManager, UserRoles.Manager).Wait();
-            // }
             
             if (userManager == null)
             {
@@ -115,11 +110,6 @@ namespace Bakery.Controller;
             };
                 
             var userDriver = _userManager.FindByEmailAsync("driver@hotmail.com").Result;
-            // if (userAdmin == null)
-            // {
-            //     _userManager.CreateAsync(driver, "DriverPassword123!");
-            //     _userManager.AddToRoleAsync(userDriver, UserRoles.Driver).Wait();
-            // }
             
             if (userDriver == null)
             {
@@ -151,11 +141,6 @@ namespace Bakery.Controller;
             };
                 
             var userBaker = _userManager.FindByEmailAsync("baker@hotmail.com").Result;
-            // if (userAdmin == null)
-            // {
-            //     _userManager.CreateAsync(baker, "BakerPassword123!");
-            //     _userManager.AddToRoleAsync(userBaker, UserRoles.Baker).Wait();
-            // }
             
             if (userBaker == null)
             {
@@ -180,7 +165,6 @@ namespace Bakery.Controller;
             }
             
             return Ok("Users created successfully.");
-            //return BadRequest("Failed to create user");
         }
 
         [AllowAnonymous]
