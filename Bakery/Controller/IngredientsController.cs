@@ -66,7 +66,7 @@ public class IngredientsController : ControllerBase
     [HttpPost("C1")]
     public async Task<ActionResult<IEnumerable<Ingredient>>> AddIngredientAndQuantity(IngredientDTO ingredientDTO)
     {
-        var timestamp = new DateTimeOffset(DateTime.UtcNow);
+        var timestamp = new DateTimeOffset(DateTime.Now);
         var loginfo = new { Operation = "Post added ingredient", Timestamp = timestamp };
         
         _logger.LogInformation("Post called {@loginfo} ", loginfo);
@@ -93,7 +93,7 @@ public class IngredientsController : ControllerBase
     [HttpPut("C2")]
     public async Task<ActionResult<IEnumerable<Ingredient>>> UpdateIngredientStock(int id, IngredientDTO ingredientDTO)
     {
-        var timestamp = new DateTimeOffset(DateTime.UtcNow);
+        var timestamp = new DateTimeOffset(DateTime.Now);
         var loginfo = new { Operation = "Put Ingredients stock", Timestamp = timestamp };
         
         _logger.LogInformation("Put called {@loginfo} ", loginfo);
@@ -122,7 +122,7 @@ public class IngredientsController : ControllerBase
     [HttpDelete("C3")]
     public async Task<ActionResult<IEnumerable<Ingredient>>> DeleteIngredient(int id)
     {
-        var timestamp = new DateTimeOffset(DateTime.UtcNow);
+        var timestamp = new DateTimeOffset(DateTime.Now);
         var loginfo = new { Operation = "Delete Ingredient", Timestamp = timestamp };
         
         _logger.LogInformation("Delete called {@loginfo} ", loginfo);

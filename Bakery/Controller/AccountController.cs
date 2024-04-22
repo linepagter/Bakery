@@ -40,7 +40,7 @@ namespace Bakery.Controller;
         [HttpPost("SeedUsers")]
         public async Task<ActionResult> SeedUsers()
         {
-            var timestamp = new DateTimeOffset(DateTime.UtcNow);
+            var timestamp = new DateTimeOffset(DateTime.Now);
             var loginfo = new { Operation = "Post users", Timestamp = timestamp };
         
             _logger.LogInformation("Post called {@loginfo} ", loginfo);
@@ -177,7 +177,7 @@ namespace Bakery.Controller;
         [HttpPost]
         public async Task<ActionResult> Login(LoginDTO input, string username, string password)
         {
-            var timestamp = new DateTimeOffset(DateTime.UtcNow);
+            var timestamp = new DateTimeOffset(DateTime.Now);
             var loginfo = new { Operation = "Post Login", Timestamp = timestamp };
         
             _logger.LogInformation("Post called {@loginfo} ", loginfo);

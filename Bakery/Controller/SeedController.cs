@@ -37,7 +37,7 @@ namespace Bakery.Controller
         [ResponseCache(NoStore = true)]
         public async Task<IActionResult> Put()
         {
-            var timestamp = new DateTimeOffset(DateTime.UtcNow);
+            var timestamp = new DateTimeOffset(DateTime.Now);
             var loginfo = new { Operation = "Put Ingredients", Timestamp = timestamp };
         
             _logger.LogInformation("Put called {@loginfo} ", loginfo);
