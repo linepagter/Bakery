@@ -175,7 +175,7 @@ namespace Bakery.Controller;
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult> Login(LoginDTO input, string username, string password)
+        public async Task<ActionResult> Login([FromQuery] string username, [FromQuery] string password)
         {
             var timestamp = new DateTimeOffset(DateTime.Now);
             var loginfo = new { Operation = "Post Login", Timestamp = timestamp };
@@ -186,10 +186,8 @@ namespace Bakery.Controller;
             {
                 if (ModelState.IsValid)
                 {
-                    input.UserName = username;
-                    input.Password = password;
-                    var user = await _userManager.FindByNameAsync(input.UserName);
-                    if (user == null || !await _userManager.CheckPasswordAsync(user, input.Password))
+                    var user = await _userManager.FindByNameAsync(username);
+                    if (user == null || !await _userManager.CheckPasswordAsync(user, password))
                         throw new Exception("Invalid login attempt.");
                     else
                     {

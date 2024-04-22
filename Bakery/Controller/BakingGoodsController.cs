@@ -24,7 +24,7 @@ public class BakingGoodsController: ControllerBase
     
     [Authorize(Roles = $"{UserRoles.Administrator}, {UserRoles.Driver}, {UserRoles.Manager}")]
     [HttpGet("Query3")]
-    public async Task<ActionResult<IEnumerable<BakingGood>>> GetBakedGoods(int orderId)
+    public async Task<ActionResult<IEnumerable<BakingGood>>> GetBakedGoods([FromQuery]int orderId)
     {
         var query = from bg in _context.BakingGoods
             join bgo in _context.BakingGoodOrders on bg.BakingGoodId equals bgo.BakingGoodId

@@ -40,7 +40,7 @@ public class IngredientsController : ControllerBase
 
     [Authorize(Roles = $"{UserRoles.Baker},{UserRoles.Administrator}, {UserRoles.Manager}")]
     [HttpGet("Query4")]
-    public ActionResult<IEnumerable<Batch>> GetIngredientsForBatch(int batchId)
+    public ActionResult<IEnumerable<Batch>> GetIngredientsForBatch([FromQuery] int batchId)
     {
         var query = from i in _context.Ingredients
             join bi in _context.BatchIngredient on i.IngredientId equals bi.IngredientsId
@@ -64,7 +64,7 @@ public class IngredientsController : ControllerBase
 
     [Authorize(Roles = $"{UserRoles.Administrator}")]
     [HttpPost("C1")]
-    public async Task<ActionResult<IEnumerable<Ingredient>>> AddIngredientAndQuantity(IngredientDTO ingredientDTO)
+    public async Task<ActionResult<IEnumerable<Ingredient>>> AddIngredientAndQuantity([FromQuery]IngredientDTO ingredientDTO)
     {
         var timestamp = new DateTimeOffset(DateTime.Now);
         var loginfo = new { Operation = "Post added ingredient", Timestamp = timestamp };
@@ -91,7 +91,7 @@ public class IngredientsController : ControllerBase
 
     [Authorize(Roles = $"{UserRoles.Administrator}")]
     [HttpPut("C2")]
-    public async Task<ActionResult<IEnumerable<Ingredient>>> UpdateIngredientStock(int id, IngredientDTO ingredientDTO)
+    public async Task<ActionResult<IEnumerable<Ingredient>>> UpdateIngredientStock([FromQuery]int id, [FromQuery]IngredientDTO ingredientDTO)
     {
         var timestamp = new DateTimeOffset(DateTime.Now);
         var loginfo = new { Operation = "Put Ingredients stock", Timestamp = timestamp };
@@ -120,7 +120,7 @@ public class IngredientsController : ControllerBase
 
     [Authorize(Roles = $"{UserRoles.Administrator}")]
     [HttpDelete("C3")]
-    public async Task<ActionResult<IEnumerable<Ingredient>>> DeleteIngredient(int id)
+    public async Task<ActionResult<IEnumerable<Ingredient>>> DeleteIngredient([FromQuery]int id)
     {
         var timestamp = new DateTimeOffset(DateTime.Now);
         var loginfo = new { Operation = "Delete Ingredient", Timestamp = timestamp };
