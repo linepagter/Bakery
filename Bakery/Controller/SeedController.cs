@@ -8,6 +8,7 @@ using Bakery.Data;
 using Bakery.Migrations;
 using Microsoft.EntityFrameworkCore;
 using Bakery.Models;
+using Bakery.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
@@ -21,15 +22,19 @@ namespace Bakery.Controller
          private readonly MyDbContext _context;
          private IWebHostEnvironment _environment;
          private readonly ILogger<SeedController> _logger;
+         private readonly LogService _logService;
+
         
         public SeedController(
             MyDbContext context,
             IWebHostEnvironment environment,
-            ILogger<SeedController>logger)
+            ILogger<SeedController>logger,LogService logService
+            )
         {
             _context = context;
             _environment = environment;
             _logger = logger;
+            _logService = logService;
         }
         
         [Authorize]
@@ -37,10 +42,11 @@ namespace Bakery.Controller
         [ResponseCache(NoStore = true)]
         public async Task<IActionResult> Put()
         {
+            var user = HttpContext.User.Identity.Name;
             var timestamp = new DateTimeOffset(DateTime.Now);
-            var loginfo = new { Operation = "Put Ingredients", Timestamp = timestamp };
+            var Loginfo = new { Operation = "PUT", Timestamp = timestamp, User= user };
         
-            _logger.LogInformation("Put called {@loginfo} ", loginfo);
+            _logger.LogInformation("Seed -  {@Loginfo} ", Loginfo);
             
              var order = new Order[]
             {

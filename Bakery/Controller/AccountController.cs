@@ -3,6 +3,7 @@ using System.Security.Claims;
 using Bakery.Data;
 using Bakery.DTO;
 using Bakery.Models;
+using Bakery.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,8 @@ namespace Bakery.Controller;
         private readonly MyDbContext _context;
         private readonly IConfiguration _configuration;
         private readonly UserManager<BakeryUser> _userManager;
+        private readonly LogService _logService;
+
 
         private readonly ILogger<AccountController> _logger;
         //private readonly SignInManager<BakeryUser> _signInManager;
@@ -25,10 +28,12 @@ namespace Bakery.Controller;
             MyDbContext context,
             IConfiguration configuration,
             UserManager<BakeryUser> userManager,
-            ILogger<AccountController> logger//,
+            ILogger<AccountController> logger,
+            LogService logService//,
             //SignInManager<BakeryUser> signInManager
             )
         {
+            _logService = logService;
             _context = context;
             _logger = logger;
             _configuration = configuration;
@@ -40,10 +45,11 @@ namespace Bakery.Controller;
         [HttpPost("SeedUsers")]
         public async Task<ActionResult> SeedUsers()
         {
+            var user = HttpContext.User.Identity.Name;
             var timestamp = new DateTimeOffset(DateTime.Now);
-            var loginfo = new { Operation = "Post users", Timestamp = timestamp };
+            var Loginfo = new { Operation = "POST", Timestamp = timestamp, User= user };
         
-            _logger.LogInformation("Post called {@loginfo} ", loginfo);
+            _logger.LogInformation("Seed Users - {@Loginfo} ", Loginfo);
             
             var admin = new BakeryUser()
             {
@@ -177,10 +183,11 @@ namespace Bakery.Controller;
         [HttpPost]
         public async Task<ActionResult> Login([FromQuery] string username, [FromQuery] string password)
         {
+            var userName = HttpContext.User.Identity.Name;
             var timestamp = new DateTimeOffset(DateTime.Now);
-            var loginfo = new { Operation = "Post Login", Timestamp = timestamp };
+            var Loginfo = new { Operation = "POST", Timestamp = timestamp, User=userName };
         
-            _logger.LogInformation("Post called {@loginfo} ", loginfo);
+            _logger.LogInformation("Login -  {@Loginfo} ", Loginfo);
             
             try
             {

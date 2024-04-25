@@ -1,6 +1,7 @@
 using Bakery.Data;
 using Bakery.DTO;
 using Bakery.Models;
+using Bakery.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,11 +13,14 @@ public class IngredientsController : ControllerBase
 {
     private readonly MyDbContext _context;
     private readonly ILogger<IngredientsController> _logger;
+    private readonly LogService _logService;
 
-    public IngredientsController(MyDbContext context, ILogger<IngredientsController>logger)
+
+    public IngredientsController(MyDbContext context, ILogger<IngredientsController>logger, LogService logService)
     {
         _context = context;
         _logger = logger;
+        _logService = logService;
     }
 
     [Authorize(Roles = $"{UserRoles.Baker}, {UserRoles.Administrator}, {UserRoles.Manager}")]
@@ -55,21 +59,16 @@ public class IngredientsController : ControllerBase
         var result = query.ToList();
         return Ok(result);
     }
-
-
-
-
-
-
-
+    
     [Authorize(Roles = $"{UserRoles.Administrator}")]
     [HttpPost("C1")]
     public async Task<ActionResult<IEnumerable<Ingredient>>> AddIngredientAndQuantity([FromQuery]IngredientDTO ingredientDTO)
     {
+        var user = HttpContext.User.Identity.Name;
         var timestamp = new DateTimeOffset(DateTime.Now);
-        var loginfo = new { Operation = "Post added ingredient", Timestamp = timestamp };
+        var Loginfo = new { Operation = "POST", Timestamp = timestamp, User= user };
         
-        _logger.LogInformation("Post called {@loginfo} ", loginfo);
+        _logger.LogInformation("added ingredient - {@Loginfo} ", Loginfo);
         //Add a new ingredient and quantity to the stock
         if (ingredientDTO.StockQuantity < 0)
         {
@@ -93,10 +92,11 @@ public class IngredientsController : ControllerBase
     [HttpPut("C2")]
     public async Task<ActionResult<IEnumerable<Ingredient>>> UpdateIngredientStock([FromQuery]int id, [FromQuery]IngredientDTO ingredientDTO)
     {
+        var user = HttpContext.User.Identity.Name;
         var timestamp = new DateTimeOffset(DateTime.Now);
-        var loginfo = new { Operation = "Put Ingredients stock", Timestamp = timestamp };
+        var Loginfo = new { Operation = "PUT", Timestamp = timestamp, User= user };
         
-        _logger.LogInformation("Put called {@loginfo} ", loginfo);
+        _logger.LogInformation("Ingredients stock -  {@Loginfo} ", Loginfo);
         
         //Update a quantity of an ingredient in stock
         var ingredient = await _context.Ingredients.FindAsync(id);
@@ -122,10 +122,11 @@ public class IngredientsController : ControllerBase
     [HttpDelete("C3")]
     public async Task<ActionResult<IEnumerable<Ingredient>>> DeleteIngredient([FromQuery]int id)
     {
+        var user = HttpContext.User.Identity.Name;
         var timestamp = new DateTimeOffset(DateTime.Now);
-        var loginfo = new { Operation = "Delete Ingredient", Timestamp = timestamp };
+        var Loginfo = new { Operation = "DELETE", Timestamp = timestamp, User= user };
         
-        _logger.LogInformation("Delete called {@loginfo} ", loginfo);
+        _logger.LogInformation("Ingredient -  {@Loginfo} ", Loginfo);
         
         //Delete an ingredient from the stock
         var ingredient = await _context.Ingredients.FindAsync(id);

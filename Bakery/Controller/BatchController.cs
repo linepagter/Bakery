@@ -3,6 +3,7 @@ using Bakery.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Bakery.Services;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Bakery.Controller;
@@ -15,10 +16,12 @@ public class BatchController: ControllerBase
     private readonly ILogger<BatchController> _logger;
 
 
+
     public BatchController(MyDbContext context, ILogger<BatchController>logger)
     {
         _context = context;
         _logger = logger;
+
     }
     
     [Authorize(Roles = $"{UserRoles.Baker}, {UserRoles.Administrator}, {UserRoles.Manager}")]
