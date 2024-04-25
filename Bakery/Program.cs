@@ -1,5 +1,6 @@
 using Bakery.Data;
 using Bakery.Models;
+using Bakery.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Diagnostics;
@@ -26,6 +27,7 @@ namespace Bakery
             
             // Add services to the container.
             builder.Services.AddControllers();
+            builder.Services.AddSingleton<LogService>();
             
             builder.Services.AddCors(options =>
             {
