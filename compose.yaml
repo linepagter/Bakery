@@ -5,15 +5,13 @@ services:
     build:
       dockerfile: Dockerfile
     ports:
-      - "7033:8080"
+      - "7033:7033"
     depends_on:
-      - sql
+      - sql-bakery
       - mongoDb
     environment:
-      ASPNETCORE_ENVIRONMENT: Production
-      ASPNETCORE_HTTPS_PORTS: "8080"
-    
-
+      ConnectionStrings__BakeryConnection: "Server=sql-bakery,1433;Database=BakeryDB;User Id=SA;Password=<SQLPass123>;MultipleActiveResultSets=True;TrustServerCertificate=True"
+  
   mongoDb:
     image: mongo
     container_name: mongoBakery
@@ -21,12 +19,11 @@ services:
     ports:
       - "27017:27017"
     
-  sql:
+  sql-bakery:
     image: mcr.microsoft.com/mssql/server
-    container_name: sqlBakery
+    container_name: sql-bakery
     ports:
       - "1433:1433"
     environment:
       MSSQL_SA_PASSWORD: <SQLPass123>
-      MSSQL_DATABASE: BakeryDB
       ACCEPT_EULA: "Y"

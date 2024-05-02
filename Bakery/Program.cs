@@ -45,7 +45,7 @@ namespace Bakery
             
             builder.Services.AddDbContext<MyDbContext>(options =>
                 options.UseSqlServer(
-                    builder.Configuration.GetConnectionString("DefaultConnection"))
+                    builder.Configuration["ConnectionStrings:BakeryConnection"])
             );
             
             builder.Services.AddIdentity<BakeryUser, IdentityRole>(options =>
@@ -121,6 +121,7 @@ namespace Bakery
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
+                var test = services.GetRequiredService<IConfiguration>();
                 var context = services.GetRequiredService<MyDbContext>();
                 context.Database.Migrate();
                 var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
