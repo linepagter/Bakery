@@ -5,12 +5,13 @@ services:
     build:
       dockerfile: Dockerfile
     ports:
-      - "7033:7033"
+      - "7033:8080"
+      - "7034:8081"
     depends_on:
       - sql-bakery
       - mongoDb
     environment:
-      ConnectionStrings__BakeryConnection: "Server=sql-bakery,1433;Database=BakeryDB;User Id=SA;Password=<SQLPass123>;MultipleActiveResultSets=True;TrustServerCertificate=True"
+      ConnectionStrings__BakeryConnection: "Server=sql-bakery,1433;Database=BakeryDB;User Id=SA;Password=<YourStrong@Passw0rd>;MultipleActiveResultSets=True;TrustServerCertificate=True"
   
   mongoDb:
     image: mongo
@@ -25,5 +26,5 @@ services:
     ports:
       - "1433:1433"
     environment:
-      MSSQL_SA_PASSWORD: <SQLPass123>
+      MSSQL_SA_PASSWORD: <YourStrong@Passw0rd>
       ACCEPT_EULA: "Y"
