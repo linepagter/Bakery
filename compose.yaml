@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "7033:8080"
+    depends_on:
+      - sql
+      - mongoDb
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_HTTPS_PORTS: "8080"
+    
+
+  mongoDb:
+    image: mongo
+    container_name: mongoBakery
+    restart: always
+    ports:
+      - "27017:27017"
+    
+  sql:
+    image: mcr.microsoft.com/mssql/server
+    container_name: sqlBakery
+    ports:
+      - "1433:1433"
+    environment:
+      MSSQL_SA_PASSWORD: <SQLPass123>
+      MSSQL_DATABASE: BakeryDB
+      ACCEPT_EULA: "Y"

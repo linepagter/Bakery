@@ -121,6 +121,8 @@ namespace Bakery
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<MyDbContext>();
+                context.Database.Migrate();
                 var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                 var userManager = services.GetRequiredService<UserManager<BakeryUser>>();
                 
