@@ -28,10 +28,9 @@ public class IngredientsController : ControllerBase
     public async Task<ActionResult<IEnumerable<Ingredient>>> GetIngredients()
     {
 
-        List<int> ingredientIds = new List<int> { 6, 7, 8 };
+
         
         var query = from i in _context.Ingredients
-                    where ingredientIds.Contains(i.IngredientId)
                     select new
                     {
                         IngredientName = i.IngredientName,
